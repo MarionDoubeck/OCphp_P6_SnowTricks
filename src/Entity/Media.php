@@ -17,7 +17,7 @@ class Media
     private ?string $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'media')]
-    private ?Trick $parent = null;
+    private ?Trick $trick = null;
 
     #[ORM\Column(length: 255)]
     private ?string $path = null;
@@ -42,14 +42,14 @@ class Media
         return $this;
     }
 
-    public function getParent(): ?Trick
+    public function getTrick(): ?Trick
     {
-        return $this->parent;
+        return $this->trick;
     }
 
-    public function setParent(?Trick $parent): static
+    public function setTrick(?Trick $trick): static
     {
-        $this->parent = $parent;
+        $this->trick = $trick;
 
         return $this;
     }

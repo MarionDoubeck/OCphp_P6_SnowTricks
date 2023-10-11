@@ -38,9 +38,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Trick::class)]
+    private Collection $parent;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->parent = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +165,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getParent() === $this) {
                 $comment->setParent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Trick>
+     */
+    public function getParent(): Collection
+    {
+        return $this->parent;
+    }
+
+    public function addParent(Trick $parent): static
+    {
+        if (!$this->parent->contains($parent)) {
+            $this->parent->add($parent);
+            $parent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParent(Trick $parent): static
+    {
+        if ($this->parent->removeElement($parent)) {
+            // set the owning side to null (unless already changed)
+            if ($parent->getUser() === $this) {
+                $parent->setUser(null);
             }
         }
 
