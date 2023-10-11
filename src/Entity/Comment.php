@@ -25,7 +25,7 @@ class Comment
     #[ORM\JoinColumn(nullable: false)]
     private ?Trick $trick = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options:['default'=>'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $created_at = null;
 
     public function getId(): ?int
@@ -76,7 +76,7 @@ class Comment
 
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
-        $this->created_at = new \DateTimeImmutable();
+        $this->created_at = $created_at;
 
         return $this;
     }
