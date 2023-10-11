@@ -1,0 +1,66 @@
+<?php
+
+namespace App\DataFixtures;
+
+use App\Entity\Group;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+
+class GroupsFixtures extends Fixture
+{
+    private $counter = 1;
+
+    public function load(ObjectManager $manager): void
+    {
+        $group = new Group();
+        $group->setName('Grabs');
+        $group->setDescription('Un grab consiste à attraper la planche avec la main pendant le saut');
+        $manager->persist($group);
+        $this->addReference('group_'.$this->counter, $group);
+        $this->counter++;
+
+        $group = new Group();
+        $group->setName('Rotations');
+        $group->setDescription('On désigne par le mot « rotation » uniquement des rotations horizontales');
+        $manager->persist($group);
+        $this->addReference('group_'.$this->counter, $group);
+        $this->counter++;
+
+        $group = new Group();
+        $group->setName('Flips');
+        $group->setDescription('Un flip est une rotation verticale');
+        $manager->persist($group);
+        $this->addReference('group_'.$this->counter, $group);
+        $this->counter++;
+
+        $group = new Group();
+        $group->setName('Rotations désaxées');
+        $group->setDescription('Une rotation désaxée est une rotation initialement horizontale mais lancée avec un mouvement des épaules particulier qui désaxe la rotation.');
+        $manager->persist($group);
+        $this->addReference('group_'.$this->counter, $group);
+        $this->counter++;
+
+        $group = new Group();
+        $group->setName('Slides');
+        $group->setDescription('Un slide consiste à glisser sur une barre de slide.');
+        $manager->persist($group);
+        $this->addReference('group_'.$this->counter, $group);
+        $this->counter++;
+
+        $group = new Group();
+        $group->setName('One foot tricks');
+        $group->setDescription('Figures réalisée avec un pied décroché de la fixation, afin de tendre la jambe correspondante pour mettre en évidence le fait que le pied n\'est pas fixé.');
+        $manager->persist($group);
+        $this->addReference('group_'.$this->counter, $group);
+        $this->counter++;
+
+        $group = new Group();
+        $group->setName('Old school');
+        $group->setDescription('Un ensemble de figures et une manière de réaliser des figures passée de mode, qui fait penser au freestyle des années 1980 - début 1990');
+        $manager->persist($group);
+        $this->addReference('group_'.$this->counter, $group);
+        $this->counter++;
+
+        $manager->flush();
+    }
+}
