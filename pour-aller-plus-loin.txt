@@ -1,2 +1,3 @@
 l'utilisateur peut ajouter un groupe
 admin et back-office
+couleur favicone : rgb(74, 173, 250)
