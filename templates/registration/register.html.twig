@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Inscription</h2>
+        </div>
+      </div>
+    </section><!-- End Breadcrumbs Section -->
+
+    <section id="connexion" class="contact section-bg">
+        <div class="container">
+          <div class="row d-flex justify-content-center">
+            <div class="col-lg-5 col-md-8">
+              {% if app.user %}
+              <div class="mb-3">
+                <div class="text-center my-3 mt-5">Vous êtes déjà connecté.e en tant que {{ app.user.userIdentifier }}</div>
+                <div class="text-center my-3 mt-5"><button class="pink"><a href="{{ path('app_logout') }}">Se déconnecter</a></button></div>
+              </div>
+              {% else %}
+          
+
+    {{ form_errors(registrationForm) }}
+
+    {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.username) }}
+        {{ form_row(registrationForm.plainPassword) }}
+        {{ form_row(registrationForm.avatar) }}
+        <button type="submit" class="btn my-3">M'inscrire</button>
+        <a href="{{ path('app_login')}}" class="ms-3">Déjà inscrit ?</a>
+    {{ form_end(registrationForm) }}
+    {% endif %}
+</div>
+</div>
+</div>
+</section>
+</main>
+{% endblock %}

@@ -36,6 +36,16 @@ class Comment
 
 
     /**
+     * Construct a new User instance.
+     */
+    public function __construct()
+    {
+        $this->created_at = new \DateTimeImmutable();
+
+    }//end_construct()
+
+
+    /**
      * Get the unique identifier for the comment.
      *
      * @return int|null The comment ID.

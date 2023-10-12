@@ -6,10 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity(fields: ['email'], message: 'Il y a déjà un compte associé à cette adresse')]
+#[UniqueEntity(fields: ['username'], message: 'Ce nom d\'utilisateur est déjà pris')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     
@@ -30,8 +34,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /** @var string|null The hashed password of the user */
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
-    /** @var string|null The username of the user */
+    #[ORM\Column(length: 50, unique: true)]
+    /** @var string|null The username of the user (unique) */
     private ?string $username = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -100,7 +104,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
     }
 
 
