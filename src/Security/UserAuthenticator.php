@@ -24,12 +24,10 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
 
     public function __construct(private UrlGeneratorInterface $urlGenerator)
     {
-        //$this->urlGenerator = $urlGenerator;
     }
 
     public function authenticate(Request $request): Passport
     {
-        // MARION $email = $request->request->get('email', '');
         $username = $request->request->get('username', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $username);
