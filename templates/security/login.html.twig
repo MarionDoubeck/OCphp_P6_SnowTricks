@@ -8,50 +8,51 @@
   <!-- ======= Breadcrumbs Section ======= -->
   <section class="breadcrumbs">
     <div class="container">
-
       <div class="d-flex justify-content-between align-items-center">
         <h2>Connexion</h2>
-        <ol>
-          <li><a href="/">Accueil</a></li>
-          <li>Connexion</li>
-        </ol>
       </div>
-
     </div>
   </section><!-- End Breadcrumbs Section -->
 
   <section id="connexion" class="contact section-bg">
     <div class="container">
-<div class="row d-flex justify-content-center">
-      <div class="col-lg-5 col-md-8">
-          <form method="post" role="form" class="php-email-form">
-              {% if error %}
-              <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-              {% endif %}
-          
-              {% if app.user %}
-                  <div class="mb-3">
-                      You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-5 col-md-8">
+            <form method="post">
+                {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+            
+                {% if app.user %}
+                  <div class="form-group">
+                    <div class="text-center my-3 mt-5">Vous êtes déjà connecté.e en tant que {{ app.user.userIdentifier }}</div>
+                    <div class="text-center my-3 mt-5"><button class="pink"><a href="{{ path('app_logout') }}">Se déconnecter</a></button></div>
                   </div>
+                {% else %}
+                  <div class="form-group">
+                        <label for="inputUserName">Nom d'utilisateur</label>
+                        <input type="username" value="{{ last_username }}" name="username" id="inputUserName" class="form-control" autocomplete="username" required autofocus>
+                  </div>
+                  <div class="form-group mt-3">
+                    <label for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                  </div>
+
+                  <input type="hidden" name="_csrf_token"
+                  value="{{ csrf_token('authenticate') }}">
+
+                  <div class="checkbox mb-3">
+                    <label>
+                      <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                    </label>
+                  </div>
+
+                  <div class="text-center my-3 mt-5"><button type="submit">Me connecter</button></div>
+                  <div class="text-center my-3"><a href="{{ path('app_register')}}">Pas encore inscrit ?</a></div>
               {% endif %}
-              <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
-            <div class="form-group">
-                  <label for="inputUserName">Nom d'utilisateur</label>
-                  <input type="userName" value="{{ last_username }}" name="userName" id="inputUserName" class="form-control" autocomplete="userName" required autofocus>
-            </div>
-            <div class="form-group mt-3">
-              <label for="inputPassword">Mot de passe</label>
-              <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-            </div>
-
-            <input type="hidden" name="_csrf_token"
-            value="{{ csrf_token('authenticate') }}">
-
-            <div class="text-center my-3"><button type="submit">Se connecter</button></div>
-
-          </form>
+            </form>
+        </div>
       </div>
-    </div>
     </div>
   </section>
 </main>
