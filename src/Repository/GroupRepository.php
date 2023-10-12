@@ -16,6 +16,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class GroupRepository extends ServiceEntityRepository
 {
+    /**
+     * GroupRepository constructor.
+     *
+     * @param ManagerRegistry $registry The registry service for managing the Group entity.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Group::class);

@@ -12,11 +12,23 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20231011121845 extends AbstractMigration
 {
+    /**
+     * Get a description of the migration.
+     *
+     * @return string
+     */
     public function getDescription(): string
     {
         return '';
     }
 
+
+    /**
+     * Perform the "up" migration to create the tables.
+     *
+     * @param Schema $schema schema
+     * @return void
+     */
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
@@ -27,6 +39,13 @@ final class Version20231011121845 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_6A2CA10CB281BE2E ON media (trick_id)');
     }
 
+
+    /**
+     * Perform the "down" migration to drop the tables.
+     *
+     * @param Schema $schema schema
+     * @return void
+     */
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
