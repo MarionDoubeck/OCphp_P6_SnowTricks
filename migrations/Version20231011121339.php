@@ -12,11 +12,23 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20231011121339 extends AbstractMigration
 {
+    /**
+     * Get a description of the migration.
+     *
+     * @return string
+     */
     public function getDescription(): string
     {
         return '';
     }
 
+
+    /**
+     * Perform the "up" migration to create the tables.
+     *
+     * @param Schema $schema schema
+     * @return void
+     */
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
@@ -25,6 +37,13 @@ final class Version20231011121339 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_D8F0A91EA76ED395 ON trick (user_id)');
     }
 
+
+    /**
+     * Perform the "down" migration to drop the tables.
+     *
+     * @param Schema $schema schema
+     * @return void
+     */
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs

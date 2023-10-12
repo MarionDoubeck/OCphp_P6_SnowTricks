@@ -16,6 +16,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MediaRepository extends ServiceEntityRepository
 {
+    /**
+     * MediaRepository constructor.
+     *
+     * @param ManagerRegistry $registry The registry service for managing the Media entity.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Media::class);

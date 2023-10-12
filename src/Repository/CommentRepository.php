@@ -16,6 +16,11 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CommentRepository extends ServiceEntityRepository
 {
+    /**
+     * CommentRepository constructor.
+     *
+     * @param ManagerRegistry $registry The registry service for managing the Comment entity.
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);

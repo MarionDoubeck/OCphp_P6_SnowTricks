@@ -77,7 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Set the email of this user.
      *
-     * @param string $email
+     * @param string $email the email of this user
      * @return $this
      */
     public function setEmail(string $email): static
@@ -114,7 +114,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Set the roles assigned to this user.
      *
-     * @param array $roles
+     * @param array $roles the roles assigned to this user
      * @return $this
      */
     public function setRoles(array $roles): static
@@ -138,7 +138,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Set the hashed password of this user.
      *
-     * @param string $password
+     * @param string $password the hashed password of this user
      * @return $this
      */
     public function setPassword(string $password): static
@@ -172,7 +172,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Set the username of this user.
      *
-     * @param string $username
+     * @param string $username the username of this user
      * @return $this
      */
     public function setUsername(string $username): static
@@ -196,7 +196,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Set the avatar path of this user.
      *
-     * @param string|null $avatar
+     * @param string|null $avatar the avatar path of this user
      * @return $this
      */
     public function setAvatar(?string $avatar): static
@@ -220,7 +220,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Add a comment associated with this user.
      *
-     * @param Comment $comment
+     * @param Comment $comment the comment posted by this user
      * @return $this
      */
     public function addComment(Comment $comment): static
@@ -229,6 +229,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->comments->add($comment);
             $comment->setParent($this);
         }
+
         return $this;
     }
 
@@ -236,7 +237,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Remove a comment associated with this user.
      *
-     * @param Comment $comment
+     * @param Comment $comment the comment to remove
      * @return $this
      */
     public function removeComment(Comment $comment): static
@@ -247,6 +248,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $comment->setParent(null);
             }
         }
+
         return $this;
     }
 
@@ -265,7 +267,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * Add a trick associated with this user.
      *
-     * @param Trick $parent
+     * @param Trick $parent the trick posted by this user
      * @return $this
      */
     public function addParent(Trick $parent): static
@@ -274,14 +276,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->parent->add($parent);
             $parent->setUser($this);
         }
+
         return $this;
     }
 
-    
+
     /**
      * Remove a trick associated with this user.
      *
-     * @param Trick $parent
+     * @param Trick $parent the trick by this user to remove
      * @return $this
      */
     public function removeParent(Trick $parent): static
@@ -292,6 +295,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $parent->setUser(null);
             }
         }
+        
         return $this;
     }
 

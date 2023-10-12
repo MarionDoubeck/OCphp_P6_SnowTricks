@@ -10,7 +10,7 @@ class GroupsFixtures extends Fixture
 {
     private $counter = 1;
 
-    
+
     /**
      * Load dummy group data into the database.
      *
