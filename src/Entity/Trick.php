@@ -11,28 +11,37 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: TrickRepository::class)]
 class Trick
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /** @var int|null The unique identifier */
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    /** @var string|null The name of the trick */
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    /** @var string|null The description of the trick */
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'parent')]
+    /** @var Group|null The group to which the trick belongs */
     private ?Group $trick_group = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Media::class)]
+    /** @var Collection<int, Media> The media associated with the trick */
     private Collection $media;
 
     #[ORM\OneToMany(mappedBy: 'parent2', targetEntity: Comment::class, orphanRemoval: true)]
+    /** @var Collection<int, Comment> The comments associated with the trick (with orphan removal) */
+
     private Collection $comments;
 
     #[ORM\ManyToOne(inversedBy: 'parent')]
     #[ORM\JoinColumn(nullable: false)]
+    /** @var User|null The user who created the trick (not nullable) */
     private ?User $user = null;
 
 
@@ -43,7 +52,8 @@ class Trick
     {
         $this->media = new ArrayCollection();
         $this->comments = new ArrayCollection();
-    }
+
+    }//end_construct()
 
 
     /**
@@ -148,7 +158,7 @@ class Trick
      */
     public function addMedium(Media $medium): static
     {
-        if (!$this->media->contains($medium)) {
+        if ($this->media->contains($medium) === FALSE) {
             $this->media->add($medium);
             $medium->setParent($this);
         }
@@ -165,8 +175,8 @@ class Trick
      */
     public function removeMedium(Media $medium): static
     {
-        if ($this->media->removeElement($medium)) {
-            // set the owning side to null (unless already changed)
+        if ($this->media->removeElement($medium) === TRUE) {
+            // Set the owning side to null (unless already changed)
             if ($medium->getParent() === $this) {
                 $medium->setParent(null);
             }
@@ -195,7 +205,7 @@ class Trick
      */
     public function addComment(Comment $comment): static
     {
-        if (!$this->comments->contains($comment)) {
+        if ($this->comments->contains($comment) === FALSE) {
             $this->comments->add($comment);
             $comment->setParent2($this);
         }
@@ -212,13 +222,13 @@ class Trick
      */
     public function removeComment(Comment $comment): static
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->comments->removeElement($comment) === TRUE) {
             // set the owning side to null (unless already changed)
             if ($comment->getParent2() === $this) {
                 $comment->setParent2(null);
             }
         }
-        
+
         return $this;
     }
 
@@ -246,4 +256,5 @@ class Trick
         return $this;
     }
 
+    
 }

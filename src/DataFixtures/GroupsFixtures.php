@@ -8,6 +8,7 @@ use Doctrine\Persistence\ObjectManager;
 
 class GroupsFixtures extends Fixture
 {
+    /** @var int $counter Counter for tracking iterations. */
     private $counter = 1;
 
 

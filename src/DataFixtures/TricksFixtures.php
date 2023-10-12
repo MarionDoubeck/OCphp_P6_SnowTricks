@@ -10,6 +10,7 @@ use Faker;
 
 class TricksFixtures extends Fixture implements DependentFixtureInterface
 {
+    /** @var int $counter Counter for tracking iterations. */
     private $counter = 1;
 
 
@@ -25,7 +26,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
-        $tricks = array(
+        $tricks = [
             ['Mute',1],
             ['Indy',1],
             ['Seat belt',1],
@@ -36,9 +37,9 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             ['Mac Twist', 3],
             ['Misty', 4],
             ['Method Air', 7]
-        );
+        ];
 
-        foreach ($tricks as $str){
+        foreach ($tricks as $str) {
             $trick = new Trick();
             $trick->setName($str[0]);
             $group = $this->getReference('group_'.$str[1]);
@@ -53,7 +54,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
-    }
+    }//end load()
 
 
     /**
@@ -69,4 +70,5 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             UsersFixtures::class
         ];
     }
+
 }

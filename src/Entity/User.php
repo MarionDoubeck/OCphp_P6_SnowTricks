@@ -12,33 +12,38 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /** @var int|null The unique identifier */
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    /** @var string|null The email address of the user (unique) */
     private ?string $email = null;
 
     #[ORM\Column]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
+    /** @var string|null The hashed password of the user */
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
+    /** @var string|null The username of the user */
     private ?string $username = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    /** @var string|null The path to the user's avatar (optional) */
     private ?string $avatar = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Comment::class)]
+    /** @var Collection<int, Comment> The comments made by the user */
     private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Trick::class)]
+    /** @var Collection<int, Trick> The tricks created by the user */
     private Collection $parent;
 
 
@@ -49,7 +54,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->comments = new ArrayCollection();
         $this->parent = new ArrayCollection();
-    }
+
+    }//end_construct()
 
 
     /**
@@ -225,7 +231,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function addComment(Comment $comment): static
     {
-        if (!$this->comments->contains($comment)) {
+        if ($this->comments->contains($comment) === FALSE) {
             $this->comments->add($comment);
             $comment->setParent($this);
         }
@@ -242,8 +248,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function removeComment(Comment $comment): static
     {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
+        if ($this->comments->removeElement($comment) === TRUE) {
+            // Set the owning side to null (unless already changed)
             if ($comment->getParent() === $this) {
                 $comment->setParent(null);
             }
@@ -272,7 +278,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function addParent(Trick $parent): static
     {
-        if (!$this->parent->contains($parent)) {
+        if ($this->parent->contains($parent) === FALSE) {
             $this->parent->add($parent);
             $parent->setUser($this);
         }
@@ -289,14 +295,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function removeParent(Trick $parent): static
     {
-        if ($this->parent->removeElement($parent)) {
+        if ($this->parent->removeElement($parent) === TRUE) {
             // set the owning side to null (unless already changed)
             if ($parent->getUser() === $this) {
                 $parent->setUser(null);
             }
         }
-        
+
         return $this;
     }
+
 
 }

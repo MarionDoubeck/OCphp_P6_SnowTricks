@@ -9,23 +9,29 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /** @var int|null The unique identifier of the comment */
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    /** @var string|null The content of the comment */
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
+    /** @var User|null The user who made the comment */
     private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
+    /** @var Trick|null The trick to which this comment belongs */
     private ?Trick $trick = null;
 
     #[ORM\Column(options:['default'=>'CURRENT_TIMESTAMP'])]
+    /** @var \DateTimeImmutable|null The date and time when the comment was created */
     private ?\DateTimeImmutable $created_at = null;
 
 

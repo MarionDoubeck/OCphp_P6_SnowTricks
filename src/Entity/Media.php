@@ -8,21 +8,27 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: MediaRepository::class)]
 class Media
 {
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /** @var int|null The unique identifier for the media */
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    /** @var string|null The type of media (e.g., 'image' or 'video') */
     private ?string $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'media')]
+    /** @var Trick|null The trick associated with the media */
     private ?Trick $trick = null;
 
     #[ORM\Column(length: 255)]
+    /** @var string|null The path or URL of the media file */
     private ?string $path = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    /** @var string|null The optional description for the media */
     private ?string $description = null;
 
 

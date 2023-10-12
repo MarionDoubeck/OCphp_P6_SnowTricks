@@ -10,6 +10,8 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class MediaFixtures extends Fixture implements DependentFixtureInterface
 {
+
+
     /**
      * Load dummy media data into the database.
      *
@@ -25,18 +27,18 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
         $faker = Faker\Factory::create('fr_FR');
         $types = ['image', 'video'];
 
-        for ($i=1; $i<=20; $i++){
+        for ($i = 1; $i <= 20; $i++) {
             $media = new Media();
             $type = $types[rand(0,1)];
             $media->setType($type);
             $media->setDescription($faker->text(20));
-            if($type === 'image'){
+            if($type === 'image') {
                 $path = $faker->imageUrl;
-            }else{
+            } else {
                 $videoId = $faker->regexify('[A-Za-z0-9_-]{11}');
-                $path = "https://www.youtube.com/watch?v=" . $videoId;
+                $path = "https://www.youtube.com/watch?v=".$videoId;
             }
-            
+
             $media->setPath($path);
             $trick = $this->getReference('trick_'.rand(1,10));
             $media->setTrick($trick);
@@ -44,7 +46,8 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
-    }
+
+    }//end load()
 
 
     /**
@@ -60,4 +63,5 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
             TricksFixtures::class
         ];
     }
+
 }
