@@ -12,6 +12,16 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
 {
     private $counter = 1;
 
+
+    /**
+     * Load dummy trick data into the database.
+     *
+     * This function generates fake trick data to simulate the addition of tricks.
+     * Trick names, associated trick groups, users, and descriptions are randomized.
+     *
+     * @param ObjectManager $manager The entity manager to persist the data.
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
@@ -45,6 +55,14 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+
+    /**
+     * Get the dependencies for this fixture.
+     *
+     * This function returns an array of fixture classes that this fixture depends on.
+     *
+     * @return array
+     */
     public function getDependencies():array
     {
         return [

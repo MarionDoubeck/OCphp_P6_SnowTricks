@@ -10,6 +10,16 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class MediaFixtures extends Fixture implements DependentFixtureInterface
 {
+    /**
+     * Load dummy media data into the database.
+     *
+     * This function generates fake media data to simulate the addition of images and videos.
+     * Media types, descriptions, and paths are randomized. Images are retrieved with image URLs, 
+     * and video URLs are generated in the format of a YouTube video link.
+     *
+     * @param ObjectManager $manager The entity manager to persist the data.
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
@@ -35,6 +45,14 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+
+    /**
+     * Get the dependencies for this fixture.
+     *
+     * This function returns an array of fixture classes that this fixture depends on.
+     *
+     * @return array
+     */
     public function getDependencies():array
     {
         return [

@@ -10,6 +10,15 @@ class GroupsFixtures extends Fixture
 {
     private $counter = 1;
 
+    
+    /**
+     * Load dummy group data into the database.
+     *
+     * This function populates the database with sample group data, including group names and descriptions.
+     *
+     * @param ObjectManager $manager The entity manager to persist the data.
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         $group = new Group();

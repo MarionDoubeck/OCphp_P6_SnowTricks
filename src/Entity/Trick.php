@@ -35,54 +35,103 @@ class Trick
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+
+    /**
+     * Construct a new Trick instance.
+     */
     public function __construct()
     {
         $this->media = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
 
+
+    /**
+     * Get the unique identifier of this trick.
+     *
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Get the name of this trick.
+     *
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+
+    /**
+     * Set the name of this trick.
+     *
+     * @param string $name
+     * @return $this
+     */
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
+
+    /**
+     * Get the description of this trick.
+     *
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+
+    /**
+     * Set the description of this trick.
+     *
+     * @param string $description
+     * @return $this
+     */
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
+
+    /**
+     * Get the group to which this trick belongs.
+     *
+     * @return Group|null
+     */
     public function getTrickGroup(): ?Group
     {
         return $this->trick_group;
     }
 
+
+    /**
+     * Set the group to which this trick belongs.
+     *
+     * @param Group|null $trick_group
+     * @return $this
+     */
     public function setTrickGroup(?Group $trick_group): static
     {
         $this->trick_group = $trick_group;
-
         return $this;
     }
 
+
     /**
+     * Get the media associated with this trick.
+     *
      * @return Collection<int, Media>
      */
     public function getMedia(): Collection
@@ -90,16 +139,29 @@ class Trick
         return $this->media;
     }
 
+
+    /**
+     * Add a media element to this trick.
+     *
+     * @param Media $medium
+     * @return $this
+     */
     public function addMedium(Media $medium): static
     {
         if (!$this->media->contains($medium)) {
             $this->media->add($medium);
             $medium->setParent($this);
         }
-
         return $this;
     }
 
+
+    /**
+     * Remove a media element from this trick.
+     *
+     * @param Media $medium
+     * @return $this
+     */
     public function removeMedium(Media $medium): static
     {
         if ($this->media->removeElement($medium)) {
@@ -108,11 +170,13 @@ class Trick
                 $medium->setParent(null);
             }
         }
-
         return $this;
     }
 
+
     /**
+     * Get the comments associated with this trick.
+     *
      * @return Collection<int, Comment>
      */
     public function getComments(): Collection
@@ -120,16 +184,29 @@ class Trick
         return $this->comments;
     }
 
+
+    /**
+     * Add a comment element to this trick.
+     *
+     * @param Comment $comment
+     * @return $this
+     */
     public function addComment(Comment $comment): static
     {
         if (!$this->comments->contains($comment)) {
             $this->comments->add($comment);
             $comment->setParent2($this);
         }
-
         return $this;
     }
 
+
+    /**
+     * Remove a comment element from this trick.
+     *
+     * @param Comment $comment
+     * @return $this
+     */
     public function removeComment(Comment $comment): static
     {
         if ($this->comments->removeElement($comment)) {
@@ -138,19 +215,31 @@ class Trick
                 $comment->setParent2(null);
             }
         }
-
         return $this;
     }
 
+
+    /**
+     * Get the user who created this trick.
+     *
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    
+    /**
+     * Set the user who created this trick.
+     *
+     * @param User|null $user
+     * @return $this
+     */
     public function setUser(?User $user): static
     {
         $this->user = $user;
-
         return $this;
     }
+
 }
