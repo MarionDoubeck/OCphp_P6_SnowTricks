@@ -13,11 +13,28 @@ class UsersFixtures extends Fixture
 {
     private $counter = 1;
 
+
+    /**
+     * UsersFixtures constructor.
+     *
+     * @param UserPasswordHasherInterface $passwordEncoder Password hasher for encoding user passwords.
+     * @param SluggerInterface $slugger Slugger for generating slugs.
+     */
     public function __construct(
         private UserPasswordHasherInterface $passwordEncoder,
         private SluggerInterface $slugger
     ){}
 
+
+    /**
+     * Load dummy user data into the database.
+     *
+     * This function generates fake user data to simulate user registration.
+     * User email, password, username, and avatar are randomized.
+     *
+     * @param ObjectManager $manager The entity manager to persist the data.
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');

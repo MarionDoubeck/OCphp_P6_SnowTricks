@@ -26,21 +26,44 @@ class Group
     #[ORM\OneToMany(mappedBy: 'trick_group', targetEntity: Trick::class)]
     private Collection $parent;
 
+
+    /**
+     * Construct a new Group instance.
+     */
     public function __construct()
     {
         $this->parent = new ArrayCollection();
     }
 
+
+    /**
+     * Get the unique identifier for the group.
+     *
+     * @return int|null The group ID.
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+
+    /**
+     * Get the name of the group.
+     *
+     * @return string|null The group name.
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
+
+    /**
+     * Set the name of the group.
+     *
+     * @param string $name The group name.
+     * @return $this
+     */
     public function setName(string $name): static
     {
         $this->name = $name;
@@ -48,11 +71,24 @@ class Group
         return $this;
     }
 
+
+    /**
+     * Get the description of the group.
+     *
+     * @return string|null The group description.
+     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
+
+    /**
+     * Set the description of the group.
+     *
+     * @param string $description The group description.
+     * @return $this
+     */
     public function setDescription(string $description): static
     {
         $this->description = $description;
@@ -60,14 +96,24 @@ class Group
         return $this;
     }
 
+
     /**
-     * @return Collection<int, Trick>
+     * Get the collection of tricks associated with the group.
+     *
+     * @return Collection<int, Trick> The collection of tricks.
      */
     public function getParent(): Collection
     {
         return $this->parent;
     }
 
+
+    /**
+     * Add a trick to the collection associated with the group.
+     *
+     * @param Trick $parent The trick to be added.
+     * @return $this
+     */
     public function addParent(Trick $parent): static
     {
         if (!$this->parent->contains($parent)) {
@@ -78,6 +124,13 @@ class Group
         return $this;
     }
 
+
+    /**
+     * Remove a trick from the collection associated with the group.
+     *
+     * @param Trick $parent The trick to be removed.
+     * @return $this
+     */
     public function removeParent(Trick $parent): static
     {
         if ($this->parent->removeElement($parent)) {

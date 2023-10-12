@@ -10,6 +10,16 @@ use Faker;
 
 class CommentsFixtures extends Fixture implements DependentFixtureInterface
 {
+    /**
+     * Load dummy comment data into the database.
+     *
+     * This function generates fake comments to simulate user activity on the website.
+     * Each comment contains random text with a length between 30 and 250 characters.
+     * Comments are associated with users and tricks randomly.
+     *
+     * @param ObjectManager $manager The entity manager to persist the data.
+     * @return void
+     */
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
@@ -28,6 +38,14 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
+    
+    /**
+     * Get the dependencies of this fixture.
+     *
+     * This function specifies the dependencies of this fixture on other fixtures.
+     *
+     * @return array An array of dependent fixture classes.
+     */
     public function getDependencies():array
     {
         return [
