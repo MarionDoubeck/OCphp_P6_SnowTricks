@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<main id="main">
+
+  <!-- ======= Breadcrumbs Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Connexion</h2>
+        <ol>
+          <li><a href="/">Accueil</a></li>
+          <li>Connexion</li>
+        </ol>
+      </div>
+
+    </div>
+  </section><!-- End Breadcrumbs Section -->
+
+  <section id="connexion" class="contact section-bg">
+    <div class="container">
+<div class="row d-flex justify-content-center">
+      <div class="col-lg-5 col-md-8">
+          <form method="post" role="form" class="php-email-form">
+              {% if error %}
+              <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+              {% endif %}
+          
+              {% if app.user %}
+                  <div class="mb-3">
+                      You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                  </div>
+              {% endif %}
+              <h1 class="h3 mb-3 font-weight-normal">Connexion</h1>
+            <div class="form-group">
+                  <label for="inputUserName">Nom d'utilisateur</label>
+                  <input type="userName" value="{{ last_username }}" name="userName" id="inputUserName" class="form-control" autocomplete="userName" required autofocus>
+            </div>
+            <div class="form-group mt-3">
+              <label for="inputPassword">Mot de passe</label>
+              <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+            </div>
+
+            <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}">
+
+            <div class="text-center my-3"><button type="submit">Se connecter</button></div>
+
+          </form>
+      </div>
+    </div>
+    </div>
+  </section>
+</main>
+{% endblock %}
