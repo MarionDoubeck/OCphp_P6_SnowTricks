@@ -71,7 +71,7 @@ class Trick
     /**
      * Set the name of this trick.
      *
-     * @param string $name
+     * @param string $name the name of this trick
      * @return $this
      */
     public function setName(string $name): static
@@ -95,7 +95,7 @@ class Trick
     /**
      * Set the description of this trick.
      *
-     * @param string $description
+     * @param string $description the description of this trick
      * @return $this
      */
     public function setDescription(string $description): static
@@ -119,7 +119,7 @@ class Trick
     /**
      * Set the group to which this trick belongs.
      *
-     * @param Group|null $trick_group
+     * @param Group|null $trick_group he group to which this trick belongs
      * @return $this
      */
     public function setTrickGroup(?Group $trick_group): static
@@ -143,7 +143,7 @@ class Trick
     /**
      * Add a media element to this trick.
      *
-     * @param Media $medium
+     * @param Media $medium the media element to add to the trick
      * @return $this
      */
     public function addMedium(Media $medium): static
@@ -152,6 +152,7 @@ class Trick
             $this->media->add($medium);
             $medium->setParent($this);
         }
+
         return $this;
     }
 
@@ -159,7 +160,7 @@ class Trick
     /**
      * Remove a media element from this trick.
      *
-     * @param Media $medium
+     * @param Media $medium the media element to remove from the trick
      * @return $this
      */
     public function removeMedium(Media $medium): static
@@ -170,6 +171,7 @@ class Trick
                 $medium->setParent(null);
             }
         }
+
         return $this;
     }
 
@@ -188,7 +190,7 @@ class Trick
     /**
      * Add a comment element to this trick.
      *
-     * @param Comment $comment
+     * @param Comment $comment the comment element to add
      * @return $this
      */
     public function addComment(Comment $comment): static
@@ -197,6 +199,7 @@ class Trick
             $this->comments->add($comment);
             $comment->setParent2($this);
         }
+
         return $this;
     }
 
@@ -204,7 +207,7 @@ class Trick
     /**
      * Remove a comment element from this trick.
      *
-     * @param Comment $comment
+     * @param Comment $comment the comment element to remove
      * @return $this
      */
     public function removeComment(Comment $comment): static
@@ -215,6 +218,7 @@ class Trick
                 $comment->setParent2(null);
             }
         }
+        
         return $this;
     }
 
@@ -229,11 +233,11 @@ class Trick
         return $this->user;
     }
 
-    
+
     /**
      * Set the user who created this trick.
      *
-     * @param User|null $user
+     * @param User|null $user the user who created this trick
      * @return $this
      */
     public function setUser(?User $user): static

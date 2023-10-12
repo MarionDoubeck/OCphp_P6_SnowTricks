@@ -14,7 +14,7 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
      * Load dummy media data into the database.
      *
      * This function generates fake media data to simulate the addition of images and videos.
-     * Media types, descriptions, and paths are randomized. Images are retrieved with image URLs, 
+     * Media types, descriptions, and paths are randomized. Images are retrieved with image URLs,
      * and video URLs are generated in the format of a YouTube video link.
      *
      * @param ObjectManager $manager The entity manager to persist the data.
@@ -36,6 +36,7 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
                 $videoId = $faker->regexify('[A-Za-z0-9_-]{11}');
                 $path = "https://www.youtube.com/watch?v=" . $videoId;
             }
+            
             $media->setPath($path);
             $trick = $this->getReference('trick_'.rand(1,10));
             $media->setTrick($trick);

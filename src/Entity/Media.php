@@ -51,7 +51,7 @@ class Media
     /**
      * Set the type of this media (e.g., image or video).
      *
-     * @param string $type
+     * @param string $type 'video' or 'image'
      * @return $this
      */
     public function setType(string $type): static
@@ -76,7 +76,7 @@ class Media
     /**
      * Set the trick associated with this media.
      *
-     * @param Trick|null $trick
+     * @param Trick|null $trick the trick to associate with this media.
      * @return $this
      */
     public function setTrick(?Trick $trick): static
@@ -101,7 +101,7 @@ class Media
     /**
      * Set the path to this media (e.g., URL or file path).
      *
-     * @param string $path
+     * @param string $path the path to this media (e.g., URL or file path).
      * @return $this
      */
     public function setPath(string $path): static
@@ -126,7 +126,7 @@ class Media
     /**
      * Set the description of this media.
      *
-     * @param string|null $description
+     * @param string|null $description the description of this media
      * @return $this
      */
     public function setDescription(?string $description): static

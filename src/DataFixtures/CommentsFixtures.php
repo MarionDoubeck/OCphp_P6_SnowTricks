@@ -38,7 +38,7 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
     }
 
-    
+
     /**
      * Get the dependencies of this fixture.
      *

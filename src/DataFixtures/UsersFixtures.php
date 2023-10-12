@@ -18,7 +18,7 @@ class UsersFixtures extends Fixture
      * UsersFixtures constructor.
      *
      * @param UserPasswordHasherInterface $passwordEncoder Password hasher for encoding user passwords.
-     * @param SluggerInterface $slugger Slugger for generating slugs.
+     * @param SluggerInterface            $slugger Slugger for generating slugs.
      */
     public function __construct(
         private UserPasswordHasherInterface $passwordEncoder,
