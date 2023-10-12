@@ -12,18 +12,23 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: '`group`')]
 class Group
 {
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    /** @var int|null The unique identifier of the group */
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    /** @var string|null The name of the group */
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    /** @var string|null The description of the group */
     private ?string $description = null;
 
     #[ORM\OneToMany(mappedBy: 'trick_group', targetEntity: Trick::class)]
+    /** @var Collection The collection of tricks associated with this group */
     private Collection $parent;
 
 

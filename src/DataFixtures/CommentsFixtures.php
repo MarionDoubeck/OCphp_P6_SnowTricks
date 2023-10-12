@@ -10,6 +10,8 @@ use Faker;
 
 class CommentsFixtures extends Fixture implements DependentFixtureInterface
 {
+
+
     /**
      * Load dummy comment data into the database.
      *
@@ -24,7 +26,7 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($i=1; $i<=20; $i++){
+        for ($i = 1; $i <= 20; $i++) {
             $comment = new Comment();
             $comment->setContent($faker->text(rand(30,250)));
             $user = $this->getReference('user_'.rand(1,5));
@@ -36,7 +38,8 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
-    }
+
+    }//end load()
 
 
     /**
@@ -53,4 +56,5 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
             TricksFixtures::class
         ];
     }
+
 }
