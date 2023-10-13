@@ -44,6 +44,9 @@ class Trick
     /** @var User|null The user who created the trick (not nullable) */
     private ?User $user = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
 
     /**
      * Construct a new Trick instance.
@@ -256,5 +259,16 @@ class Trick
         return $this;
     }
 
-    
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
 }

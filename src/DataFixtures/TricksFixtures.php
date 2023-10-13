@@ -7,12 +7,17 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TricksFixtures extends Fixture implements DependentFixtureInterface
 {
     /** @var int $counter Counter for tracking iterations. */
     private $counter = 1;
 
+
+    public function __construct(private SluggerInterface $slugger)
+    {
+    }
 
     /**
      * Load dummy trick data into the database.
@@ -47,6 +52,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             $user = $this->getReference('user_'.rand(1,5));
             $trick->setUser($user);
             $trick->setDescription($faker->text(200));
+            $trick->setSlug($this->slugger->slug(mb_strtolower($trick->getName(), 'UTF-8')));
             $manager->persist($trick);
 
             $this->addReference('trick_'.$this->counter, $trick);
