@@ -27,17 +27,15 @@ class Group
     /** @var string|null The description of the group */
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'trick_group', targetEntity: Trick::class)]
-    /** @var Collection The collection of tricks associated with this group */
-    private Collection $parent;
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
 
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Trick::class, orphanRemoval: true)]
+    private Collection $tricks;
 
-    /**
-     * Construct a new Group instance.
-     */
     public function __construct()
     {
-        $this->parent = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
     }
 
 
@@ -101,50 +99,46 @@ class Group
         return $this;
     }
 
-
-    /**
-     * Get the collection of tricks associated with the group.
-     *
-     * @return Collection<int, Trick> The collection of tricks.
-     */
-    public function getParent(): Collection
+    public function getSlug(): ?string
     {
-        return $this->parent;
+        return $this->slug;
     }
 
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
 
     /**
-     * Add a trick to the collection associated with the group.
-     *
-     * @param Trick $parent The trick to be added.
-     * @return $this
+     * @return Collection<int, Trick>
      */
-    public function addParent(Trick $parent): static
+    public function getTricks(): Collection
     {
-        if (!$this->parent->contains($parent)) {
-            $this->parent->add($parent);
-            $parent->setTrickGroup($this);
+        return $this->tricks;
+    }
+
+    public function addTrick(Trick $trick): static
+    {
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks->add($trick);
+            $trick->setCategory($this);
         }
 
         return $this;
     }
 
-
-    /**
-     * Remove a trick from the collection associated with the group.
-     *
-     * @param Trick $parent The trick to be removed.
-     * @return $this
-     */
-    public function removeParent(Trick $parent): static
+    public function removeTrick(Trick $trick): static
     {
-        if ($this->parent->removeElement($parent)) {
+        if ($this->tricks->removeElement($trick)) {
             // set the owning side to null (unless already changed)
-            if ($parent->getTrickGroup() === $this) {
-                $parent->setTrickGroup(null);
+            if ($trick->getCategory() === $this) {
+                $trick->setCategory(null);
             }
         }
 
         return $this;
     }
+
 }

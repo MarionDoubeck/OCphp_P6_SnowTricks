@@ -47,8 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $comments;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Trick::class)]
-    /** @var Collection<int, Trick> The tricks created by the user */
-    private Collection $parent;
+    private Collection $tricks;
+
+
 
 
     /**
@@ -58,6 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->comments = new ArrayCollection();
         $this->parent = new ArrayCollection();
+        $this->tricks = new ArrayCollection();
 
     }//end_construct()
 
@@ -262,52 +264,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
     /**
-     * Get the tricks associated with this user.
-     *
      * @return Collection<int, Trick>
      */
-    public function getParent(): Collection
+    public function getTricks(): Collection
     {
-        return $this->parent;
+        return $this->tricks;
     }
 
-
-    /**
-     * Add a trick associated with this user.
-     *
-     * @param Trick $parent the trick posted by this user
-     * @return $this
-     */
-    public function addParent(Trick $parent): static
+    public function addTrick(Trick $trick): static
     {
-        if ($this->parent->contains($parent) === FALSE) {
-            $this->parent->add($parent);
-            $parent->setUser($this);
+        if (!$this->tricks->contains($trick)) {
+            $this->tricks->add($trick);
+            $trick->setUser($this);
         }
 
         return $this;
     }
 
-
-    /**
-     * Remove a trick associated with this user.
-     *
-     * @param Trick $parent the trick by this user to remove
-     * @return $this
-     */
-    public function removeParent(Trick $parent): static
+    public function removeTrick(Trick $trick): static
     {
-        if ($this->parent->removeElement($parent) === TRUE) {
+        if ($this->tricks->removeElement($trick)) {
             // set the owning side to null (unless already changed)
-            if ($parent->getUser() === $this) {
-                $parent->setUser(null);
+            if ($trick->getUser() === $this) {
+                $trick->setUser(null);
             }
         }
 
         return $this;
     }
+
 
 
 }

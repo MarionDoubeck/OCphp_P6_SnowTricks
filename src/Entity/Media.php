@@ -19,10 +19,6 @@ class Media
     /** @var string|null The type of media (e.g., 'image' or 'video') */
     private ?string $type = null;
 
-    #[ORM\ManyToOne(inversedBy: 'media')]
-    /** @var Trick|null The trick associated with the media */
-    private ?Trick $trick = null;
-
     #[ORM\Column(length: 255)]
     /** @var string|null The path or URL of the media file */
     private ?string $path = null;
@@ -30,6 +26,9 @@ class Media
     #[ORM\Column(length: 255, nullable: true)]
     /** @var string|null The optional description for the media */
     private ?string $description = null;
+
+    #[ORM\ManyToOne(inversedBy: 'media')]
+    private ?Trick $trick = null;
 
 
     /**
@@ -63,31 +62,6 @@ class Media
     public function setType(string $type): static
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-
-    /**
-     * Get the trick associated with this media.
-     *
-     * @return Trick|null
-     */
-    public function getTrick(): ?Trick
-    {
-        return $this->trick;
-    }
-
-
-    /**
-     * Set the trick associated with this media.
-     *
-     * @param Trick|null $trick the trick to associate with this media.
-     * @return $this
-     */
-    public function setTrick(?Trick $trick): static
-    {
-        $this->trick = $trick;
 
         return $this;
     }
@@ -138,6 +112,18 @@ class Media
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getTrick(): ?Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(?Trick $trick): static
+    {
+        $this->trick = $trick;
 
         return $this;
     }

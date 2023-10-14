@@ -16,13 +16,33 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TrickRepository extends ServiceEntityRepository
 {
-    /**
-     * TrickRepository constructor.
-     *
-     * @param ManagerRegistry $registry The registry service for managing the Trick entity.
-     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Trick::class);
     }
+
+//    /**
+//     * @return Trick[] Returns an array of Trick objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('t')
+//            ->andWhere('t.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('t.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
+//    public function findOneBySomeField($value): ?Trick
+//    {
+//        return $this->createQueryBuilder('t')
+//            ->andWhere('t.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
 }
