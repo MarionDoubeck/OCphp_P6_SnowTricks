@@ -1,4 +1,7 @@
 l'utilisateur peut ajouter un groupe
 admin et back-office
-couleur favicone : rgb(74, 173, 250)
 mon compte : modifer avatar
+supprimer un groupe vide
+gérer les cas où $em->persist($user);
+                $em->flush(); marchent pas (securitycontroller.php)
+ajouter les vérification de mail bien envoyé
