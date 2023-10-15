@@ -35,4 +35,10 @@ class TrickController extends AbstractController
             'trick' => $trick
         ]);
     }
+
+    #[Route('/tricks/{slug}/delete', name: 'tricks_delete')]
+    public function delete(Trick $trick): void
+    {
+        throw new \LogicException('methode à faire');
+    }
 }

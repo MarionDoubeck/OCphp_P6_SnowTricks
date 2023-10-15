@@ -25,14 +25,13 @@ class Comment
     /** @var User|null The user who made the comment */
     private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
-    /** @var Trick|null The trick to which this comment belongs */
-    private ?Trick $trick = null;
-
     #[ORM\Column(options:['default'=>'CURRENT_TIMESTAMP'])]
     /** @var \DateTimeImmutable|null The date and time when the comment was created */
     private ?\DateTimeImmutable $created_at = null;
+
+    #[ORM\ManyToOne(inversedBy: 'comment')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Trick $trick = null;
 
 
     /**
@@ -107,31 +106,6 @@ class Comment
 
 
     /**
-     * Get the trick associated with the comment.
-     *
-     * @return Trick|null The trick the comment is associated with.
-     */
-    public function getTrick(): ?Trick
-    {
-        return $this->trick;
-    }
-
-
-    /**
-     * Set the trick associated with the comment.
-     *
-     * @param Trick|null $trick The trick the comment is associated with.
-     * @return $this
-     */
-    public function setTrick(?Trick $trick): static
-    {
-        $this->trick = $trick;
-
-        return $this;
-    }
-
-
-    /**
      * Get the creation date and time of the comment.
      *
      * @return \DateTimeImmutable|null The comment's creation timestamp.
@@ -151,6 +125,18 @@ class Comment
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getTrick(): ?Trick
+    {
+        return $this->trick;
+    }
+
+    public function setTrick(?Trick $trick): static
+    {
+        $this->trick = $trick;
 
         return $this;
     }

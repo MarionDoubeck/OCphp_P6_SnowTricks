@@ -40,7 +40,9 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             ['720', 2],
             ['big foot', 2],
             ['Mac Twist', 3],
+            ['Backside Lipslide', 5],
             ['Misty', 4],
+            ['One-foot Indy', 6],
             ['Method Air', 7]
         ];
 
@@ -48,7 +50,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             $trick = new Trick();
             $trick->setName($str[0]);
             $group = $this->getReference('group_'.$str[1]);
-            $trick->setTrickGroup($group);
+            $trick->setCategory_id($group);
             $user = $this->getReference('user_'.rand(1,5));
             $trick->setUser($user);
             $trick->setDescription($faker->text(200));
