@@ -1,25 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détail de {{ trick.name }}{% endblock %}
+{% block title %}{{ trick.name }}{% endblock %}
 
 {% block body %}
 <main id="main">
 
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>{{ trick.name }}</h2>
-        </div>
+  <!-- ======= Breadcrumbs Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Le {{ trick.name }}</h2>
       </div>
-    </section><!-- End Breadcrumbs Section -->
+    </div>
+  </section><!-- End Breadcrumbs Section -->
+
+  <section id="portfolio-details" class="portfolio-details">
+    <div class="container">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-8">
+          <div class="portfolio-details-slider swiper">
+            <div class="swiper-wrapper align-items-center">
+
+              {% for medium in trick.media %}
+              <div class="swiper-slide">
+                <img src="{{asset('assets/img/portfolio/portfolio-1.jpg')}}" alt="{{medium.description}}">
+              </div>
+              {% endfor %}
 
 
-    <section class="inner-page">
-        <div class="container">
-            {{ trick.description }}
+            </div>
+            <div class="swiper-pagination"></div>
+          </div>
         </div>
-      </section>
+
+        <div class="col-lg-4">
+          <div class="portfolio-info">
+            <h3>{{trick.name}}</h3>
+            <ul>
+              <li><strong>Categorie</strong>: {{trick.category_id.name}}</li>
+              <li><strong>Description</strong>: {{trick.description}}</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="resume" class="resume section-bg">
+    <div class="container">
+      <div class="section-title">
+        <h2>Discussion</h2>
+        <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem aliquid itaque, laudantium quibusdam
+          recusandae dicta, minima, voluptatibus non maxime blanditiis iure distinctio quam perferendis officia quasi
+          eos. Et, sapiente? Quasi.</div>
+        {% for comment in trick.comment %}
+        {# pour la moitié : <div class="col-lg-6"></div> #}
+        <div class="resume-item pb-0">
+          <img src="{{asset('assets/img/portfolio/portfolio-details-3.jpg')}}" style="height: 35px; width:35px; border-radius:100%;" alt="photo de l'auteur">
+          <p>{{comment.user.username}}</p>
+          <p><em>{{comment.createdAt|date('Y-m-d H:i:s')}}</em></p>
+          <p>{{comment.content}}
+          </p>
+        </div>
+        <Hr>
+        {% endfor %}
+      </div>
+
+    </div>
+  </section>
 
 </main>
 {% endblock %}

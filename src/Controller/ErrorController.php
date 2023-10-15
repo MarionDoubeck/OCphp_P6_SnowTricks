@@ -9,12 +9,17 @@ class ErrorController extends AbstractController
 {
     public function handleError(\Throwable $exception): Response
     {
-    $code = $exception->getStatusCode();
-
-    if ($code === 404) {
-        return $this->render('error/error404.html.twig', []);
-    }
-
-    return $this->render('error/error.html.twig', []);
+        if (method_exists($exception, 'getStatusCode') && $exception->getStatusCode() === 404){
+            return $this->render('error/error404.html.twig', []);
+        } elseif (method_exists($exception, 'getStatusCode')) {
+            return $this->render('error/error.html.twig', [
+                'exception_message' => 'Une erreur s\'est produite',
+            ]);
+        } else {
+            dd($exception);
+            return $this->render('error/error.html.twig', [
+                'exception_message' => 'Une erreur s\'est produite',
+            ]);
+        }
     }
 }
