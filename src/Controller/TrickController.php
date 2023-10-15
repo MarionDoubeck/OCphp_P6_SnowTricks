@@ -10,6 +10,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TrickController extends AbstractController
 {
+    #[Route('/tricks', name: 'tricks_index')]
+    public function index(): Response
+    {
+        return $this->render('trick/add.html.twig', [
+            'controller_name' => 'TrickController',
+        ]);
+    }
+
     #[Route('/tricks/nouveau-trick', name: 'tricks_add')]
     public function add(): Response
     {
@@ -23,7 +31,7 @@ class TrickController extends AbstractController
     {
         return $this->render('trick/details.html.twig', [
             'controller_name' => 'TrickController',
-            'trick' => $trick
+            'trick' => $trick,
         ]);
     }
 
