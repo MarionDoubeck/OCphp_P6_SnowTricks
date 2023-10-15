@@ -1,0 +1,5 @@
+<h1>Activez votre compte</h1>
+<p>Bonjour {{user.username}}</p>
+<p>Votre compte Snowboard Freestyle n'est pas encore activé.</p>
+<p><a href="{{ absolute_url(path('verify_user', {token: token})) }}">Pour l'activer cliquez ici</a></p>
+<p>Ce lien expirera dans 3h</p>
