@@ -24,8 +24,7 @@ class MainController extends AbstractController
             'groups' => $groupRepository->findBy([], 
             ['name' => 'asc']),
             'tricks' => $trickRepository->findBy([],
-            ['name' => 'asc']),
-            //'userId' => $user->getId()
+            ['name' => 'asc'])
         ]);
     }
 }

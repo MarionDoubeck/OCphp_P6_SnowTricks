@@ -3,7 +3,7 @@
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="d-flex flex-column align-items-center justify-content-center">
     <h1>Snowboard Freestyle</h1>
-    <a href="#tricks" class="btn-get-started scrollto"><i class="bi bi-chevron-double-down"></i></a>
+    <a href="#navbar" class="btn-get-started scrollto"><i class="bi bi-chevron-double-down"></i></a>
     </section><!-- End Hero -->
 {% endblock %}
 
@@ -38,7 +38,8 @@
                       </li>
                     {% endfor %}
                   </ul>
-                  {% if app.user %}
+                  {# and user.is_verified == TRUE #}
+                  {% if app.user  %}
                     <ul id="portfolio-flters">
                       <li data-filter=".filter-mine">Mes tricks </li>
                       <a href="tricks/nouveau-trick" class="portfolio-link">AJOUTER UN TRICK</a>
@@ -60,6 +61,7 @@
                     <div class="portfolio-links">
                       <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{trick.name}}"><i class="bx bx-plus"></i></a>
                       <a href="/tricks/{{trick.slug}}" title="More Details"><i class="bx bx-link"></i></a>
+                      {# and user.is_verified == TRUE #}
                       {% if app.user == trick.user %}
                         <a href="/tricks/{{trick.slug}}/edit" title="Modifier le trick">Edit</a>
                         <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick">Delete</a>

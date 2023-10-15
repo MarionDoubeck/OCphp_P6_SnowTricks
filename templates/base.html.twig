@@ -46,7 +46,8 @@
         {% if app.user and app.user.isVerified == false %}
             <div class="alert alert-warning alert-dissmissible d-flex justify-content-between" role="alert">
                 <div class="alert-message">
-                    <strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation
+                    <strong>Votre compte n'est pas activé</strong>, 
+                    <a href="{{path('resend_verif')}}">cliquez ici pour renvoyer le lien d'activation</a>
                 </div>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -55,6 +56,7 @@
         {% include "_partials/_flash.html.twig" %}
         
         {% block body %}{% endblock %}
+
         {% include "_partials/_footer.html.twig" %}
     </body>
 </html>
