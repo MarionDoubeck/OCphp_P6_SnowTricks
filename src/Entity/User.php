@@ -58,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        $this->parent = new ArrayCollection();
+        //$this->parent = new ArrayCollection();
         $this->tricks = new ArrayCollection();
 
     }//end_construct()
@@ -239,7 +239,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->comments->contains($comment) === FALSE) {
             $this->comments->add($comment);
-            $comment->setParent($this);
+            $comment->setUser($this);
         }
 
         return $this;
@@ -256,8 +256,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->comments->removeElement($comment) === TRUE) {
             // Set the owning side to null (unless already changed)
-            if ($comment->getParent() === $this) {
-                $comment->setParent(null);
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
 

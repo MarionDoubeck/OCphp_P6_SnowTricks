@@ -1193,3 +1193,8 @@ button.pink a, button.pink a:visited{
   background: #d43076;
   color: white;
 }
+
+.portfolio-link{
+  font-size: 14px;
+  font-weight: 600;
+}

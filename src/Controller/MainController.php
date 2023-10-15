@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\GroupRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,6 +25,7 @@ class MainController extends AbstractController
             ['name' => 'asc']),
             'tricks' => $trickRepository->findBy([],
             ['name' => 'asc']),
+            //'userId' => $user->getId()
         ]);
     }
 }
