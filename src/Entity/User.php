@@ -324,6 +324,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
-
+    //not to have error in forms
+    public function __toString()
+    {
+        return $this->getUserIdentifier();
+    }
 }

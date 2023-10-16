@@ -56,6 +56,23 @@
         <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem aliquid itaque, laudantium quibusdam
           recusandae dicta, minima, voluptatibus non maxime blanditiis iure distinctio quam perferendis officia quasi
           eos. Et, sapiente? Quasi.</div>
+
+        {% if app.user and app.user.isVerified == TRUE %}
+          <div class="container my-5">
+            <div class="row d-flex justify-content-center">
+                  {{ form_start(commentForm) }}
+                      {{ form_row(commentForm.content)}}
+                      <div class="text-center my-3 mt-5"><button type="submit">Publier votre message</button></div>
+                  {{ form_end(commentForm) }}
+            </div>
+          </div>
+          {% else %}
+            <div class="row d-flex justify-content-center">
+              <div class="text-center mt-5"><a href="{{ path('app_login') }}">Connectez-vous pour écrire un commentaire</a></div>
+              <div class="text-center mb-5"><a href="{{ path('app_register') }}">Ou enregistrez-vous</a></div>
+            </div>
+        {% endif %}
+
         {% for comment in trick.comment %}
         {# pour la moitié : <div class="col-lg-6"></div> #}
         <div class="resume-item pb-0">
