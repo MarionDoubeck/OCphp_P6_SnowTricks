@@ -41,11 +41,11 @@
                   <input type="hidden" name="_csrf_token"
                   value="{{ csrf_token('authenticate') }}">
 
-                  <div class="checkbox mb-3">
+                  {# <div class="checkbox mb-3">
                     <label>
                       <input type="checkbox" name="_remember_me"> Se souvenir de moi
                     </label>
-                  </div>
+                  </div> #}
 
                   <div class="text-center my-3 mt-5"><button type="submit">Me connecter</button></div>
                   <div class="text-center my-3"><a href="{{ path('app_register')}}">Pas encore inscrit ?</a></div>

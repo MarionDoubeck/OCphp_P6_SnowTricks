@@ -73,7 +73,7 @@
             </div>
         {% endif %}
 
-        {% for comment in trick.comment %}
+        {% for comment in trick.getSortedComments() %}
         {# pour la moitié : <div class="col-lg-6"></div> #}
         <div class="resume-item pb-0">
           <img src="{{asset('assets/img/portfolio/portfolio-details-3.jpg')}}" style="height: 35px; width:35px; border-radius:100%;" alt="photo de l'auteur">

@@ -175,4 +175,22 @@ class Trick
     {
         return $this->getName();
     }
+
+     /**
+     * Get sorted comments (from newest to oldest).
+     *
+     * @return Collection|Comment[]
+     */
+    public function getSortedComments(): Collection
+    {
+        $sortedComments = $this->comment;
+        if ($sortedComments !== null) {
+        $sortedComments = $sortedComments->toArray();
+        usort($sortedComments, function (Comment $a, Comment $b) {
+            return $b->getCreatedAt() <=> $a->getCreatedAt();
+        });
+        }
+
+        return new ArrayCollection($sortedComments);
+    }
 }
