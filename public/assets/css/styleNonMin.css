@@ -1139,7 +1139,7 @@ section {
   border-color: #d43076;
 }
 
-#connexion button[type=submit], button.pink {
+button[type=submit], button.pink {
   background: #d43076;
   border: 0;
   padding: 10px 24px;
@@ -1151,7 +1151,7 @@ button.pink a, button.pink a:visited{
   color: #fff;
 }
 
-#connexion button[type=submit]:hover, button.pink:hover {
+button[type=submit]:hover, button.pink:hover {
   background: #dd5a92;
 }
 
