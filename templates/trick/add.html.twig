@@ -17,7 +17,12 @@
 
     <section class="inner-page">
         <div class="container">
-            formulaire
+          {{ form_start(addTrickForm) }}
+            {{ form_row(addTrickForm.name)}}
+            {{ form_row(addTrickForm.description)}}
+            {{ form_row(addTrickForm.category)}}
+            <div class="text-center my-3 mt-5"><button type="submit">Publier votre figure</button></div>
+          {{ form_end(addTrickForm) }}
         </div>
       </section>
 

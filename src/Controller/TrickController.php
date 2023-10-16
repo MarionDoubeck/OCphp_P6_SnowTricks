@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\AddTrickFormType;
 use App\Form\CommentFormType;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,10 +17,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     #[Route('/tricks/nouveau-trick', name: 'tricks_add')]
-    public function add(): Response
+    public function add(Request $request): Response
     {
+        $newTrick = new Trick;
+        $addTrickForm = $this->createForm(AddTrickFormType::class, $newTrick);
+        $addTrickForm->handleRequest($request);
+        if ($addTrickForm->isSubmitted() && $addTrickForm->isValid()) {
+            $newTrickData = $addTrickForm->getData();
+            dd($newTrickData);
+        }
+
         return $this->render('trick/add.html.twig', [
             'controller_name' => 'TrickController',
+            'addTrickForm' => $addTrickForm->createView(),
         ]);
     }
 
