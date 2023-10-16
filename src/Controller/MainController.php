@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Repository\GroupRepository;
+use App\Repository\CategoryRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,11 +17,11 @@ class MainController extends AbstractController
     /**
      * @Route("/", name="main")
      */
-    public function index(GroupRepository $groupRepository, TrickRepository $trickRepository): Response
+    public function index(CategoryRepository $categoryRepository, TrickRepository $trickRepository): Response
     {
         return $this->render('main/index.html.twig', [
             'controller_name' => 'MainController',
-            'groups' => $groupRepository->findBy([], 
+            'categories' => $categoryRepository->findBy([], 
             ['name' => 'asc']),
             'tricks' => $trickRepository->findBy([],
             ['name' => 'asc'])

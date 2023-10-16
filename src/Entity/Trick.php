@@ -28,9 +28,7 @@ class Trick
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Media::class)]
     private Collection $media;
 
-    #[ORM\ManyToOne(inversedBy: 'tricks')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Group $category = null;
+  
 
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     #[ORM\JoinColumn(nullable: false)]
@@ -38,6 +36,9 @@ class Trick
 
     #[ORM\OneToMany(mappedBy: 'trick', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comment;
+
+    #[ORM\ManyToOne(inversedBy: 'tricks')]
+    private ?Category $category = null;
 
     public function __construct()
     {
@@ -116,17 +117,6 @@ class Trick
         return $this;
     }
 
-    public function getCategory_id(): ?Group
-    {
-        return $this->category;
-    }
-
-    public function setCategory_id(?Group $category): static
-    {
-        $this->category = $category;
-
-        return $this;
-    }
 
     public function getUser(): ?User
     {
@@ -192,5 +182,17 @@ class Trick
         }
 
         return new ArrayCollection($sortedComments);
+    }
+
+    public function getcategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setcategory(?Category $category): static
+    {
+        $this->category = $category;
+
+        return $this;
     }
 }
