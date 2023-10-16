@@ -20,16 +20,24 @@ class AddTrickFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => 'Groupe de la figure',
+                'attr' => [
+                    'class' => 'my-2',
+                ],
+            ])
             ->add('name', TextType::class, [
                 'label' => 'Nom de la figure',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control my-2',
                 ],
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Description de la figure',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control my-2',
                     'rows' => 6,
                 ],
                 'constraints' => [
@@ -44,10 +52,7 @@ class AddTrickFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
-            ])
+            
            /*  ->add('media.type', ChoiceType::class, [
                 'choices' => [
                     'Image' => 'image',

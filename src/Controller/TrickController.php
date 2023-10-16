@@ -12,19 +12,36 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TrickController extends AbstractController
 {
     #[Route('/tricks/nouveau-trick', name: 'tricks_add')]
-    public function add(Request $request): Response
+    public function add(
+        Request $request,
+        SluggerInterface $slugger,
+        EntityManagerInterface $em
+    ): Response
     {
         $newTrick = new Trick;
         $addTrickForm = $this->createForm(AddTrickFormType::class, $newTrick);
         $addTrickForm->handleRequest($request);
+        
+
         if ($addTrickForm->isSubmitted() && $addTrickForm->isValid()) {
-            $newTrickData = $addTrickForm->getData();
-            dd($newTrickData);
+            if ($this->checkIfTrickExists($em, $newTrick->getName())){
+                $this->addFlash('danger','Ce trick existe déjà');
+                return $this->redirectToRoute('tricks_add');
+            }else{
+                $slug = $slugger->slug(mb_strtolower($newTrick->getName(), 'UTF-8'));
+                $newTrick->setSlug($slug);
+                $newTrick->setUser($this->getUser());
+                $em->persist($newTrick);
+                $em->flush();
+
+                $this->addFlash('success','Votre trick à bien été publié');
+                return $this->redirectToRoute('main', ['_fragment' => 'flash']);
+            }
         }
 
         return $this->render('trick/add.html.twig', [
@@ -67,11 +84,32 @@ class TrickController extends AbstractController
     }
 
     #[Route('/tricks/{slug}/edit', name: 'tricks_edit')]
-    public function edit(Trick $trick): Response
+    public function edit(
+        Trick $trick,
+        Request $request,
+        SluggerInterface $slugger,
+        EntityManagerInterface $em
+    ): Response
     {
+        $addTrickForm = $this->createForm(AddTrickFormType::class, $trick);
+        $addTrickForm->handleRequest($request);
+        
+
+        if ($addTrickForm->isSubmitted() && $addTrickForm->isValid()) {
+            $slug = $slugger->slug(mb_strtolower($trick->getName(), 'UTF-8'));
+            $trick->setSlug($slug);
+            $trick->setUser($this->getUser());
+            $em->persist($trick);
+            $em->flush();
+
+            $this->addFlash('success','Votre trick à bien été modifié');
+            return $this->redirectToRoute('main', ['_fragment' => 'flash']);
+        }
+
         return $this->render('trick/edit.html.twig', [
             'controller_name' => 'TrickController',
-            'trick' => $trick
+            'trick' => $trick,
+            'addTrickForm' => $addTrickForm->createView(),
         ]);
     }
 
@@ -81,4 +119,11 @@ class TrickController extends AbstractController
         throw new \LogicException('methode à faire');
     }
     
+    public function checkIfTrickExists(EntityManagerInterface $entityManager, string $trickName): bool
+    {
+        $trickRepository = $entityManager->getRepository(Trick::class);
+        $existingTrick = $trickRepository->findOneBy(['name' => $trickName]);
+
+        return $existingTrick !== null;
+    }
 }
