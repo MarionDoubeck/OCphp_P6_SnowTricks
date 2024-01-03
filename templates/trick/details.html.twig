@@ -71,6 +71,7 @@
             </div>
         {% endif %}
 
+<<<<<<< HEAD
         {% for comment in trick.getSortedComments() %}
         {# pour la moitié : <div class="col-lg-6"></div> #}
         <div class="resume-item pb-0">
@@ -83,6 +84,24 @@
         </div>
         <Hr>
         {% endfor %}
+=======
+        
+        {% if trick.getSortedComments() is not empty %}
+          {% for comment in trick.getSortedComments() %}
+          {# pour la moitié : <div class="col-lg-6"></div> #}
+          <div class="resume-item pb-0">
+            <img src="{{asset('assets/img/portfolio/portfolio-details-3.jpg')}}" style="height: 35px; width:35px; border-radius:100%;" alt="photo de l'auteur">
+            <p>{{comment.user.username}}</p>
+            <p><em>{{comment.createdAt|date('Y-m-d H:i:s')}}</em></p>
+            <p>{{comment.content}}
+            </p>
+          </div>
+          <Hr>
+          {% endfor %}
+        {% else %}
+          <div>Il n'y a pas encore de commentaire pour ce trick.</div>
+        {% endif %}
+>>>>>>> 2a55fc04f8b3223873ea533d9f092f1c6b8e75dc
       </div>
 
     </div>

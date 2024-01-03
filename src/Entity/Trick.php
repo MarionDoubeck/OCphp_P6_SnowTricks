@@ -184,10 +184,10 @@ class Trick
     {
         $sortedComments = $this->comment;
         if ($sortedComments !== null) {
-        $sortedComments = $sortedComments->toArray();
-        usort($sortedComments, function (Comment $a, Comment $b) {
-            return $b->getCreatedAt() <=> $a->getCreatedAt();
-        });
+            $sortedComments = $sortedComments->toArray();
+            usort($sortedComments, function (Comment $a, Comment $b) {
+                return $b->getCreatedAt() <=> $a->getCreatedAt();
+            });
         }
 
         return new ArrayCollection($sortedComments);
