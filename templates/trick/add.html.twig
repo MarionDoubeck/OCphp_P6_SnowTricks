@@ -15,11 +15,27 @@
     </section><!-- End Breadcrumbs Section -->
 
 
-    <section class="inner-page">
+    {% if app.user %} 
+      <section class="inner-page">
         <div class="container">
-            formulaire
+          {{ form_start(addTrickForm) }}
+          {{ form_row(addTrickForm.category)}}
+            {{ form_row(addTrickForm.name)}}
+            {{ form_row(addTrickForm.description)}}
+            <div class="text-center my-3 mt-5"><button type="submit">Publier votre figure</button></div>
+          {{ form_end(addTrickForm) }}
         </div>
       </section>
+    {% else %}
+      <section class="inner-page">
+        <div class="container">
+          <div class="row d-flex justify-content-center">
+            <div class="text-center mt-5"><a href="{{ path('app_login') }}">Connectez-vous pour publier un nouveau trick</a></div>
+            <div class="text-center mb-5"><a href="{{ path('app_register') }}">Ou enregistrez-vous</a></div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
 
 </main>
 {% endblock %}

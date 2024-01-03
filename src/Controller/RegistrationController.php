@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class RegistrationController extends AbstractController
 {
@@ -45,6 +46,24 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+
+            //avatar upload
+            $avatarFile = $form->get('avatar')->getData();
+            if ($avatarFile instanceof UploadedFile) {
+                // Generate unique filename
+                $newFilename = uniqid().'.'.$avatarFile->guessExtension();
+
+                // Move file to avatars'folder directory
+                $avatarFile->move(
+                    $this->getParameter('avatars_directory'),
+                    $newFilename
+                );
+
+                //update avatar path in user entity
+                $user->setAvatar($newFilename);
+            }else{
+
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifiez {{ trick.name }}{% endblock %}
+{% block title %}Modifiez un trick{% endblock %}
 
 {% block body %}
 <main id="main">
@@ -9,17 +9,33 @@
     <section class="breadcrumbs">
       <div class="container">
         <div class="d-flex justify-content-between align-items-center">
-          <h2>Modifiez la fiche du {{ trick.name }}</h2>
+          <h2>Modifiez un trick</h2>
         </div>
       </div>
     </section><!-- End Breadcrumbs Section -->
 
 
-    <section class="inner-page">
+    {% if app.user and app.user == trick.user %} 
+      <section class="inner-page">
         <div class="container">
-            formulaire
+          {{ form_start(addTrickForm) }}
+          {{ form_row(addTrickForm.category)}}
+            {{ form_row(addTrickForm.name)}}
+            {{ form_row(addTrickForm.description)}}
+            <div class="text-center my-3 mt-5"><button type="submit">Modifier votre figure</button></div>
+          {{ form_end(addTrickForm) }}
         </div>
       </section>
+    {% else %}
+      <section class="inner-page">
+        <div class="container">
+          <div class="row d-flex justify-content-center">
+            <div class="text-center mt-5">Vous devez être l'auteur de ce trick pour pouvoir le modifier</div>
+            <div class="text-center mb-5"><a href="/tricks/{{trick.slug}}">Commentez-le pour demander une modification à son auteur</a></div>
+          </div>
+        </div>
+      </section>
+    {% endif %}
 
 </main>
 {% endblock %}

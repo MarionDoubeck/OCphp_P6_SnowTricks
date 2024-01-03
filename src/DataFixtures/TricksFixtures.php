@@ -23,7 +23,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
      * Load dummy trick data into the database.
      *
      * This function generates fake trick data to simulate the addition of tricks.
-     * Trick names, associated trick groups, users, and descriptions are randomized.
+     * Trick names, associated trick categories, users, and descriptions are randomized.
      *
      * @param ObjectManager $manager The entity manager to persist the data.
      * @return void
@@ -49,12 +49,16 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
         foreach ($tricks as $str) {
             $trick = new Trick();
             $trick->setName($str[0]);
-            $group = $this->getReference('group_'.$str[1]);
-            $trick->setCategory_id($group);
+            $category = $this->getReference('category_'.$str[1]);
+            $trick->setcategory($category);
             $user = $this->getReference('user_'.rand(1,5));
             $trick->setUser($user);
             $trick->setDescription($faker->text(200));
-            $trick->setSlug($this->slugger->slug(mb_strtolower($trick->getName(), 'UTF-8')));
+            //$trick->setSlug($this->slugger->slug(mb_strtolower($trick->getName(), 'UTF-8')));
+            $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $trick->getName());
+    $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug); // Supprime les caractères non autorisés
+    $slug = strtolower($slug);
+    $trick->setSlug($slug);
             $manager->persist($trick);
 
             $this->addReference('trick_'.$this->counter, $trick);

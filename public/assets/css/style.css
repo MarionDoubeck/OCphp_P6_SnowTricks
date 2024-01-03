@@ -329,54 +329,43 @@ h6 {
 # Hero Section
 --------------------------------------------------------------*/
 #hero {
-  position: relative;
   width: 100%;
-  height: 100vh;
-  background: rgba(255, 255, 255, 0.5); 
+  height: 75vh;
+  background: url("../img/hero-bg.jpg") top center;
+  background-size: cover;
   padding: 0 15px;
 }
 
-#hero::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("../img/bg.jpeg") top center;
-  background-size: cover;
-  z-index: -1;
-}
-
 #hero h1 {
-  margin: 0 0 50px 0;
-  font-size: 100px;
+  margin: 0 0 10px 0;
+  font-size: 48px;
   font-weight: 700;
   line-height: 56px;
-  text-transform: uppercase;
-  color: #309ad4;
-  -webkit-text-stroke: 2px #0041ac;
-  text-stroke: 2px #0041ac;
-  font-family: 'Marker Felt';
+  color: #fff;
+  -webkit-text-stroke: 2px #00032a;
+  text-stroke: 2px #00032a;
+
+}
+
+#hero h2 {
+  color: #eee;
+  margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: 300;
+  font-family: "Poppins", sans-serif;
 }
 
 #hero .btn-get-started {
-  font-size: 116px;
-  font-weight: bold;
+  font-size: 64px;
   transition: 0.5s;
-  color: #ffffff;
-  -webkit-text-stroke: 2px #ff8400;
-  text-stroke: 2px #ff8400;
+  color: #fff;
   height: 60px;
 }
 
 #hero .btn-get-started:hover {
   padding-top: 10px;
   color: #309ad4;
-  -webkit-text-stroke: 2px #0041ac;
-  text-stroke: 2px #0041ac;
 }
-
 
 @media (min-width: 1024px) {
   #hero {
@@ -1090,7 +1079,7 @@ section {
   margin: 0;
 }
 
-#connexion .error-message {
+.contact .php-email-form .error-message {
   display: none;
   color: #fff;
   background: #ed3c0d;
@@ -1099,11 +1088,11 @@ section {
   font-weight: 600;
 }
 
-#connexion .error-message br+br {
+.contact .php-email-form .error-message br+br {
   margin-top: 25px;
 }
 
-#connexion .sent-message {
+.contact .php-email-form .sent-message {
   display: none;
   color: #fff;
   background: #18d26e;
@@ -1112,14 +1101,14 @@ section {
   font-weight: 600;
 }
 
-#connexion .loading {
+.contact .php-email-form .loading {
   display: none;
   background: #fff;
   text-align: center;
   padding: 15px;
 }
 
-#connexion .loading:before {
+.contact .php-email-form .loading:before {
   content: "";
   display: inline-block;
   border-radius: 50%;
@@ -1131,19 +1120,19 @@ section {
   animation: animate-loading 1s linear infinite;
 }
 
-#connexion input,
-#connexion textarea {
+.contact .php-email-form input,
+.contact .php-email-form textarea {
   border-radius: 0;
   box-shadow: none;
   font-size: 14px;
 }
 
-#connexion input:focus,
-#connexion textarea:focus {
+.contact .php-email-form input:focus,
+.contact .php-email-form textarea:focus {
   border-color: #309ad4;
 }
 
-button[type=submit], button.pink {
+.contact .php-email-form button[type=submit] {
   background: #309ad4;
   border: 0;
   padding: 10px 24px;
@@ -1151,11 +1140,8 @@ button[type=submit], button.pink {
   transition: 0.4s;
   border-radius: 50px;
 }
-button.pink a, button.pink a:visited{
-  color: #fff;
-}
 
-button[type=submit]:hover, button.pink:hover {
+.contact .php-email-form button[type=submit]:hover {
   background: #476db0;
 }
 
@@ -1189,51 +1175,3 @@ button[type=submit]:hover, button.pink:hover {
   font-size: 13px;
 }
 
-#registration_form_avatar{
-  margin: 30px 20px;
-}
-
-.portfolio-title{
-  background: #309ad4;
-  color: white;
-}
-
-.portfolio-link{
-  font-size: 14px;
-  font-weight: 600;
-}
-.icon-edit:before{
-  content: "\270E";
-  margin-right: 5px;
-}
-.icon-delete:before{
-  content: url("../img/trash-can.svg");
-  margin-bottom: 2px;
-}
-.icon-delete:hover:before {
-  content: url("../img/tc-blue.svg");
-  margin-bottom: 2px;
-}
-.featured-img img{
-  width: 100%;
-  height: calc(100vh - 250px);
-  object-fit: cover;
-}
-.media-row{
-  display: flex;
-  overflow-x: auto;
-  margin-bottom: 10px;
-}
-.medium{
-  width: calc(16.666% - 5px);
-  margin-right: 5px;
-  margin-bottom: 15px;
-}
-.medium img{
-  width: 100%;
-}
-
-.smaller{
-  font-size: 12px;
-  margin-top: 30px;
-}

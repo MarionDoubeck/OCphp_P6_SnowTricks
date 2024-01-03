@@ -84,7 +84,7 @@ class SecurityController extends AbstractController
             }
 
             //else : if $user doesn't exist with this username (===null)
-            $this->addFlash('danger', 'Un problème est survenu');
+            $this->addFlash('danger', 'Nom d\'utilisateur inconnu');
             return $this->redirectToRoute('app_login');
         }
         

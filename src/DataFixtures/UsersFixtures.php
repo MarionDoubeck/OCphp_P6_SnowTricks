@@ -33,7 +33,7 @@ class UsersFixtures extends Fixture
      * Load dummy user data into the database.
      *
      * This function generates fake user data to simulate user registration.
-     * User email, password, username, and avatar are randomized.
+     * User email, password, username, are randomized.
      *
      * @param ObjectManager $manager The entity manager to persist the data.
      * @return void
@@ -49,7 +49,6 @@ class UsersFixtures extends Fixture
                 $this->passwordEncoder->hashPassword($user, 'secret')
             );
             $user->setUserName($faker->userName);
-            $user->setAvatar($faker->imageUrl);
 
             $manager->persist($user);
 
