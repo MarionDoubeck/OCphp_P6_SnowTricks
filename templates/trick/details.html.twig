@@ -16,37 +16,35 @@
 
   <section id="portfolio-details" class="portfolio-details">
     <div class="container">
-
-      <div class="row gy-4">
-
-        <div class="col-lg-8">
-          <div class="portfolio-details-slider swiper">
-            <div class="swiper-wrapper align-items-center">
-
-              {% for medium in trick.media %}
-              <div class="swiper-slide">
-                <img src="{{asset('assets/img/portfolio/portfolio-1.jpg')}}" alt="{{medium.description}}">
-              </div>
-              {% endfor %}
-
-
-            </div>
-            <div class="swiper-pagination"></div>
-          </div>
+      <div class="row mb-3">
+        <div class="featured-img">
+          <img src="{{asset('assets/img/portfolio/portfolio-1.jpg')}}" alt="medium-description">
         </div>
+      </div>
 
-        <div class="col-lg-4">
-          <div class="portfolio-info">
-            <h3>{{trick.name}}</h3>
-            <ul>
-              <li><strong>Categorie</strong>: {{trick.category.name}}</li>
-              <li><strong>Description</strong>: {{trick.description}}</li>
-            </ul>
+      {% if trick.media %}
+        <div class="row mb-3 media-row">
+        {% for medium in trick.media %}
+          <div class="medium">
+            <img src="{{asset('assets/img/portfolio/portfolio-1.jpg')}}" alt="{{medium.description}}">
           </div>
+        {% endfor %}
+        <div class="scroll-arrow">&#9654;</div>
         </div>
+      {% endif %}
 
+      <div class="row mb-3">
+        <div class="portfolio-info">
+          <h3>{{trick.name}}</h3>
+          <ul>
+            <li><strong>Description</strong>: {{trick.description}}</li>
+            <li><strong>Categorie</strong>: {{trick.category.name}}</li>
+            <li class="smaller"><strong>Auteur</strong>: {{trick.user}} &nbsp;&nbsp;&nbsp;<strong>Créé le</strong>: {{trick.createdAt|date('d/m/Y H:i:s', 'Europe/Paris')}} &nbsp;&nbsp;&nbsp;<strong>Dernière modification le</strong>: {{ trick.editedAt ? trick.editedAt|date('d/m/Y H:i:s') : 'Non modifié' }}</li>
+          </ul>
+        </div>
       </div>
     </div>
+
   </section>
 
   <section id="resume" class="resume section-bg">
@@ -76,9 +74,10 @@
         {% for comment in trick.getSortedComments() %}
         {# pour la moitié : <div class="col-lg-6"></div> #}
         <div class="resume-item pb-0">
-          <img src="{{asset('assets/img/portfolio/portfolio-details-3.jpg')}}" style="height: 35px; width:35px; border-radius:100%;" alt="photo de l'auteur">
+          <img src="{{ comment.user.avatar is not null ? asset('assets/avatars/' ~ comment.user.avatar) : asset('assets/avatars/default.png') }}"
+          style="height: 35px; width:35px; border-radius:100%;" alt="photo de l'auteur">
           <p>{{comment.user.username}}</p>
-          <p><em>{{comment.createdAt|date('Y-m-d H:i:s')}}</em></p>
+          <p><em>{{comment.createdAt|date('Y-m-d H:i:s', 'Europe/Paris')}}</em></p>
           <p>{{comment.content}}
           </p>
         </div>

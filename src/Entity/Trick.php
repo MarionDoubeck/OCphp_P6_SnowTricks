@@ -40,10 +40,20 @@ class Trick
     #[ORM\ManyToOne(inversedBy: 'tricks')]
     private ?Category $category = null;
 
+    #[ORM\Column(type: "datetime_immutable", options: ["default" => "CURRENT_TIMESTAMP"])]
+    private ?\DateTimeImmutable $created_at;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $edited_at = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?media $featured_img = null;
+
     public function __construct()
     {
         $this->media = new ArrayCollection();
         $this->comment = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -117,7 +127,6 @@ class Trick
         return $this;
     }
 
-
     public function getUser(): ?User
     {
         return $this->user;
@@ -175,10 +184,10 @@ class Trick
     {
         $sortedComments = $this->comment;
         if ($sortedComments !== null) {
-        $sortedComments = $sortedComments->toArray();
-        usort($sortedComments, function (Comment $a, Comment $b) {
-            return $b->getCreatedAt() <=> $a->getCreatedAt();
-        });
+            $sortedComments = $sortedComments->toArray();
+            usort($sortedComments, function (Comment $a, Comment $b) {
+                return $b->getCreatedAt() <=> $a->getCreatedAt();
+            });
         }
 
         return new ArrayCollection($sortedComments);
@@ -195,4 +204,49 @@ class Trick
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): static
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getEditedAt(): ?\DateTimeImmutable
+    {
+        return $this->edited_at;
+    }
+
+    public function setEditedAt(?\DateTimeImmutable $edited_at): static
+    {
+        $this->edited_at = $edited_at;
+
+        return $this;
+    }
+
+    public function getFeaturedImg(): ?media
+    {
+        return $this->featured_img;
+    }
+
+    public function setFeaturedImg(?media $featured_img): static
+    {
+        $this->featured_img = $featured_img;
+
+        return $this;
+    }
+
+    public function removeFeaturedImg(Media $featuredImg): static
+{
+    if ($this->featured_img === $featuredImg) {
+        $this->setFeaturedImg(null);
+    }
+
+    return $this;
+}
 }

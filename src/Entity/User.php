@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    /** @var string|null The path to the user's avatar (optional) */
+    /** @var string|null Binary content of user's avatar (optional) */
     private ?string $avatar = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: Comment::class)]

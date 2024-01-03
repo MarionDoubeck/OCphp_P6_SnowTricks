@@ -56,12 +56,10 @@
                       <p>{{trick.category.name}}</p>
                     </div>
                     <div class="portfolio-links">
-                      <a href="assets/img/portfolio/portfolio-1.jpg" data-gallery="portfolioGallery" class="portfolio-lightbox" title="{{trick.name}}"><i class="bx bx-plus"></i></a>
-                      <a href="/tricks/{{trick.slug}}" title="More Details"><i class="bx bx-link"></i></a>
-                      
+                      <a href="/tricks/{{trick.slug}}" title="Details"><i class="bx bx-plus"></i></a>
                       {% if app.user == trick.user and app.user.isVerified == TRUE %}
-                        <a href="/tricks/{{trick.slug}}/edit" title="Modifier le trick">Edit</a>
-                        <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick">Delete</a>
+                        <a href="/tricks/{{trick.slug}}/edit" title="Modifier le trick"><i class="icon-edit"></i></a>
+                        <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick"><i class="icon-delete"></i></a>
                       {% endif %}
                     </div>
                   </div>
