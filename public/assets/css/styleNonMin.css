@@ -1203,12 +1203,31 @@ button[type=submit]:hover, button.pink:hover {
   font-weight: 600;
 }
 .icon-edit:before{
+  display: block;
   content: "\270E";
   margin-right: 5px;
+  color: white;
+  font-size: 25px;
+  padding: 0px 0px 37px 7px !important;
+  border-radius: 100%;
+  width: 37px !important;
+  height: 37px !important;
 }
 .icon-delete:before{
+  display: block;
   content: url("../img/trash-can.svg");
   margin-bottom: 2px;
+  padding: 6px 0px 0px 8px !important;
+  border-radius: 100%;
+  width: 37px !important;
+  height: 37px !important;
+}
+.icon-delete-black:before{
+  content: url("../img/trash-can-none.svg");
+  margin-bottom: 2px;
+}
+.icon-edit:hover:before{
+  color: #476db0;
 }
 .icon-delete:hover:before {
   content: url("../img/tc-blue.svg");
@@ -1236,4 +1255,21 @@ button[type=submit]:hover, button.pink:hover {
 .smaller{
   font-size: 12px;
   margin-top: 30px;
+}
+
+.featured-img{
+  position: relative;
+}
+.featured-img .icon-edit{
+  position: absolute;
+  top: 5px;
+  right: 55px;
+}
+.featured-img .icon-delete{
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+.featured-img .icon-edit:before, .featured-img .icon-delete:before{
+  background-color: black;
 }

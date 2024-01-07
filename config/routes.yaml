@@ -1,3 +1,12 @@
 controllers:
     resource: ../src/Controller/
     type: attribute
+tricks_delete:
+    path: /tricks/{slug}/delete
+    controller: 'App\Controller\TrickController::delete'
+    methods: ['POST', 'GET']
+
+media_delete:
+    path: /tricks/{media}/delete
+    controller: 'App\Controller\TrickController::deleteMedia'
+    methods: ['POST', 'GET']

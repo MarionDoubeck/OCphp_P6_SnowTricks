@@ -7,14 +7,16 @@ use App\Entity\Media;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\File;
 
 class AddTrickFormType extends AbstractType
 {
@@ -26,7 +28,7 @@ class AddTrickFormType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Groupe de la figure',
                 'attr' => [
-                    'class' => 'my-2',
+                    'class' => 'my-2 mx-2',
                 ],
             ])
             ->add('name', TextType::class, [
@@ -53,14 +55,41 @@ class AddTrickFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('images', FileType::class, [
+/*             ->add('images', FileType::class, [
                 'label' => false,
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-control my-2',
+                ],
+            ]) */
+            ->add('media', CollectionType::class, [
+                'label' => false,
+                'entry_type' => MediaType::class,
+                'allow_add' => true, 
+                'allow_delete' => true,
+                'by_reference' => false,
+                'required' => false,
+                'prototype' => true,
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'media-collection',
+                ],
             ])
-            
-           /*  ->add('media.type', ChoiceType::class, [
+            /*  
+            ->add('mediaExternalLink', UrlType::class, [
+                'label' => 'Ajouter un media avec un lien externe : ',
+                'required' => false,
+                'mapped' => false,
+                'constraints' => [
+                    // Ajoutez ici les contraintes pour le lien externe
+                ],
+                'attr' => [
+                    'class' => 'my-2 mx-2',
+                ],
+            ]);
+            ->add('media.type', ChoiceType::class, [
                 'choices' => [
                     'Image' => 'image',
                     'Video' => 'video',

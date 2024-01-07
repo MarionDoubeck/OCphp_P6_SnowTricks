@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Entity\Media;
 use App\Form\AddTrickFormType;
 use App\Form\CommentFormType;
 use App\Repository\CommentRepository;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class TrickController extends AbstractController
 {
@@ -32,10 +34,45 @@ class TrickController extends AbstractController
             if ($this->checkIfTrickExists($em, $newTrick->getName())){
                 $this->addFlash('danger','Ce trick existe déjà');
                 return $this->redirectToRoute('tricks_add');
-            }else{
+            } else {
                 $slug = $slugger->slug(mb_strtolower($newTrick->getName(), 'UTF-8'));
                 $newTrick->setSlug($slug);
                 $newTrick->setUser($this->getUser());
+
+                //media upload
+                $mediaFiles = $addTrickForm->get('media')->getData();
+                foreach ($mediaFiles as $mediaItem) {
+                    $mediaFile = $mediaItem['file'];
+                    if ($mediaFile instanceof UploadedFile) {
+                        // Generate unique filename
+                        $newFilename = uniqid().'.'.$mediaFile->guessExtension();
+
+                        // Move file to medias'folder directory
+                        $mediaFile->move(
+                            $this->getParameter('media_directory'),
+                            $newFilename
+                        );
+
+                        //create new media 
+                        $newMedia = new Media;
+                        $newMedia->setPath($newFilename);
+                        $newMedia->setTrick($newTrick);
+                        $newMedia->setDescription($newTrick->getName());
+                        $mimeType = $mediaFile->getClientMimeType();
+
+                        if (strpos($mimeType, 'image') === 0) {
+                            $newMedia->setType('image');
+                        } elseif (strpos($mimeType, 'video') === 0) {
+                            $newMedia->setType('video');
+                        } else {
+                            throw new \LogicException('format non pris en charge');
+                        }
+                        $em->persist($newMedia);
+                    } else {
+                    throw new \LogicException('Le fichier n\'est pas une instance de UploadedFile. Contenu : ' . var_export($mediaFile, true));
+                    }
+                }
+
                 $em->persist($newTrick);
                 $em->flush();
 
@@ -43,7 +80,6 @@ class TrickController extends AbstractController
                 return $this->redirectToRoute('main', ['_fragment' => 'flash']);
             }
         }
-
         return $this->render('trick/add.html.twig', [
             'controller_name' => 'TrickController',
             'addTrickForm' => $addTrickForm->createView(),
@@ -114,10 +150,28 @@ class TrickController extends AbstractController
     }
 
     #[Route('/tricks/{slug}/delete', name: 'tricks_delete')]
-    public function delete(Trick $trick): void
+    public function delete(Trick $trick, EntityManagerInterface $em): Response
     {
-        throw new \LogicException('methode à faire');
+        $em->remove($trick);
+        $em->flush();
+
+        $this->addFlash('success', 'Votre trick a bien été supprimé');
+        return $this->redirectToRoute('main', ['_fragment' => 'flash']);
     }
+
+    #[Route('/tricks/{media}/delete', name: 'media_delete')]
+    public function deleteMedia(Media $media, EntityManagerInterface $em): Response
+    {
+        $trick = $media->getTrick();
+        $trick->removeMedium($media);
+
+        $em->remove($media);
+        $em->flush();
+
+        $this->addFlash('success', 'Le média a bien été supprimé');
+        return $this->redirectToRoute('tricks_details', ['slug' => $trick->getSlug()]);
+    }
+
     
     public function checkIfTrickExists(EntityManagerInterface $entityManager, string $trickName): bool
     {

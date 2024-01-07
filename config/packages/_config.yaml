@@ -2,3 +2,4 @@
 
 parameters:
     avatars_directory: '%kernel.project_dir%/public/assets/avatars'
+    media_directory: '%kernel.project_dir%/public/assets/media'

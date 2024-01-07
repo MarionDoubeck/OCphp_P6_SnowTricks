@@ -61,8 +61,6 @@ class RegistrationController extends AbstractController
 
                 //update avatar path in user entity
                 $user->setAvatar($newFilename);
-            }else{
-
             }
 
             $entityManager->persist($user);

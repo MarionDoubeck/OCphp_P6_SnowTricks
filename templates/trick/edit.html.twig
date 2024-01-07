@@ -16,16 +16,53 @@
 
 
     {% if app.user and app.user == trick.user %} 
-      <section class="inner-page">
+    {{ form_start(addTrickForm) }}      
+      <section id="portfolio-details" class="portfolio-details">
         <div class="container">
-          {{ form_start(addTrickForm) }}
-          {{ form_row(addTrickForm.category)}}
-            {{ form_row(addTrickForm.name)}}
-            {{ form_row(addTrickForm.description)}}
+          <div class="row mb-3">
+            <div class="featured-img">
+              <img src="{{asset('assets/img/bg.jpeg')}}" alt="medium-description">
+              <a href="#" title="Modifier l'image à la une'"><i class="icon-edit"></i></a>
+            </div>
+          </div>
+          
+          {% if trick.media %}
+          <div class="row mb-3 media-row">
+            {% for medium in trick.media %}
+            <div class="medium">
+              <img src="{{asset('assets/media/' ~ medium.path)}}" alt="{{medium.description}}">
+              <a href="{{ path('media_delete', {'media': medium.id}) }}" title="Supprimer le media"><i class="icon-delete-black"></i></a>
+            </div>
+            {% endfor %}
+            <ul style="width:100%">
+              <li>{{ form_row(addTrickForm.mediaUpload)}}</li>
+              <li>{{ form_row(addTrickForm.mediaExternalLink) }}</li>
+            </ul>
+            
+          </div>
+          {% endif %}
+          
+          <div class="row mb-3">
+            <div class="portfolio-info">
+              <h3>{{ form_row(addTrickForm.name)}}</h3>
+              <ul>
+                <li>{{ form_row(addTrickForm.description)}}</li>
+                
+                <li>{{ form_row(addTrickForm.category)}}</li>
+                
+                  <li class="smaller"><strong>Auteur</strong>: {{trick.user}} &nbsp;&nbsp;&nbsp;<strong>Créé le</strong>: {{trick.createdAt|date('d/m/Y H:i:s', 'Europe/Paris')}} &nbsp;&nbsp;&nbsp;<strong>Dernière modification le</strong>: {{ trick.editedAt ? trick.editedAt|date('d/m/Y H:i:s') : 'Non modifié' }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="container">
             <div class="text-center my-3 mt-5"><button type="submit">Modifier votre figure</button></div>
+          </div>
+          
           {{ form_end(addTrickForm) }}
-        </div>
-      </section>
+        </section>
+    
     {% else %}
       <section class="inner-page">
         <div class="container">

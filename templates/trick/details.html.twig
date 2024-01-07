@@ -18,18 +18,29 @@
     <div class="container">
       <div class="row mb-3">
         <div class="featured-img">
-          <img src="{{asset('assets/img/portfolio/portfolio-1.jpg')}}" alt="medium-description">
+          <img src="{{asset('assets/img/bg.jpeg')}}" alt="medium-description">
+          {% if app.user == trick.user and app.user.isVerified == TRUE %}
+            <a href="/tricks/{{trick.slug}}/edit" title="Modifier le trick"><i class="icon-edit"></i></a>
+            <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick"><i class="icon-delete"></i></a>
+          {% endif %}
         </div>
       </div>
 
       {% if trick.media %}
         <div class="row mb-3 media-row">
-        {% for medium in trick.media %}
+          {% for medium in trick.media %}
           <div class="medium">
-            <img src="{{asset('assets/img/portfolio/portfolio-1.jpg')}}" alt="{{medium.description}}">
+              {% if medium.type == "image" %}
+                  <img src="{{ asset('assets/media/' ~ medium.path) }}" alt="{{ medium.description }}">
+              {% elseif medium.type == "video" %}
+                  <!-- Code pour intégrer la lecture de la vidéo, par exemple avec une balise video HTML -->
+                  <video width="320" height="240" controls>
+                      <source src="{{ asset('assets/media/' ~ medium.path) }}" type="video/mp4">
+                      Your browser does not support the video tag.
+                  </video>
+              {% endif %}
           </div>
-        {% endfor %}
-        <div class="scroll-arrow">&#9654;</div>
+      {% endfor %}
         </div>
       {% endif %}
 
