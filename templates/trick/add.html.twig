@@ -22,8 +22,30 @@
           {{ form_row(addTrickForm.category)}}
             {{ form_row(addTrickForm.name)}}
             {{ form_row(addTrickForm.description)}}
+            {{ form_row(addTrickForm.isFeatured)}}
+            <div id="img-upload-container" data-prototype="{{ form_widget(addTrickForm.images.vars.prototype)|e }}">
+              {# Affichez les médias existants ici s'ils en ont déjà #}
+            </div>
+            {{ form_row(addTrickForm.images)}}
+            <button type="button" id="add-img-upload">Ajouter une image depuis votre ordinateur</button>
+            {% if addTrickForm.images|length > 0 %}
+                    <div class="image-featured-checkbox-container">
+                        {{ form_row(addTrickForm.isFeatured, {
+                            'label': 'Choisir comme image principale',
+                            'attr': {'class': 'image-featured-checkbox'}
+                        }) }}
+                    </div>
+                {% endif %}
+
+            <div id="video-link-container" data-prototype="{{ form_widget(addTrickForm.videoEmbdedCode.vars.prototype)|e }}">
+              {# Affichez les médias existants ici s'ils en ont déjà #}
+            </div>
+            {{ form_row(addTrickForm.videoEmbdedCode)}}
+            <button type="button" id="add-video-link">Ajouter une video avec un code embded</button>
+
+
             <div class="text-center my-3 mt-5"><button type="submit">Publier votre figure</button></div>
-          {{ form_end(addTrickForm) }}
+            {{ form_end(addTrickForm) }}
         </div>
       </section>
     {% else %}
@@ -39,3 +61,4 @@
 
 </main>
 {% endblock %}
+

@@ -18,18 +18,39 @@
     <div class="container">
       <div class="row mb-3">
         <div class="featured-img">
-          <img src="{{asset('assets/img/portfolio/portfolio-1.jpg')}}" alt="medium-description">
+          {% if trick.featuredImg %}
+              <a href="{{ asset('assets/media/' ~ trick.featuredImg.path) }}">
+                <img src="{{ asset('assets/media/' ~ trick.featuredImg.path) }}" alt="{{ trick.featuredImg.description }}" class="img-fluid">
+              </a>
+          {% else %}
+              <a href="{{ asset('assets/img/bg.jpeg') }}">
+                <img src="{{ asset('assets/img/bg.jpeg') }}" alt="pas d'image à la une" class="img-fluid">
+              </a>
+          {% endif %}
+          {% if app.user == trick.user and app.user.isVerified == TRUE %}
+            <a href="/tricks/{{trick.slug}}/edit" title="Modifier le trick"><i class="icon-edit"></i></a>
+            <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick" onclick="return confirm('Voulez-vous vraiment supprimer ce trick?');"><i class="icon-delete"></i></a>
+          {% endif %}
         </div>
       </div>
 
       {% if trick.media %}
         <div class="row mb-3 media-row">
-        {% for medium in trick.media %}
-          <div class="medium">
-            <img src="{{asset('assets/img/portfolio/portfolio-1.jpg')}}" alt="{{medium.description}}">
-          </div>
+          {% for medium in trick.media %}
+            {% if medium != trick.featuredImg %}
+            <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+              <div class="medium">
+                {% if medium.type == "image" %}
+                    <a href="{{ asset('assets/media/' ~ medium.path) }}">
+                      <img src="{{ asset('assets/media/' ~ medium.path) }}" alt="{{ medium.description }}" class="img-fluid">
+                    </a>
+                {% elseif medium.type == "video" %}
+                    {{ medium.path|raw }}
+                {% endif %}
+              </div>
+            </div>
+            {% endif %}
         {% endfor %}
-        <div class="scroll-arrow">&#9654;</div>
         </div>
       {% endif %}
 

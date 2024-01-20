@@ -1203,12 +1203,31 @@ button[type=submit]:hover, button.pink:hover {
   font-weight: 600;
 }
 .icon-edit:before{
+  display: block;
   content: "\270E";
   margin-right: 5px;
+  color: white;
+  font-size: 25px;
+  padding: 0px 0px 37px 7px !important;
+  border-radius: 100%;
+  width: 37px !important;
+  height: 37px !important;
 }
 .icon-delete:before{
+  display: block;
   content: url("../img/trash-can.svg");
   margin-bottom: 2px;
+  padding: 6px 0px 0px 8px !important;
+  border-radius: 100%;
+  width: 37px !important;
+  height: 37px !important;
+}
+.icon-delete-black:before{
+  content: url("../img/trash-can-none.svg");
+  margin-bottom: 2px;
+}
+.icon-edit:hover:before{
+  color: #476db0;
 }
 .icon-delete:hover:before {
   content: url("../img/tc-blue.svg");
@@ -1225,15 +1244,56 @@ button[type=submit]:hover, button.pink:hover {
   margin-bottom: 10px;
 }
 .medium{
-  width: calc(16.666% - 5px);
-  margin-right: 5px;
-  margin-bottom: 15px;
+  position: relative; 
+  padding-bottom: 56.25%; 
+  height: 0; 
+  overflow: hidden;
 }
-.medium img{
-  width: 100%;
-}
+.medium iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+
 
 .smaller{
   font-size: 12px;
   margin-top: 30px;
+}
+
+.featured-img{
+  position: relative;
+}
+.featured-img .icon-edit{
+  position: absolute;
+  top: 5px;
+  right: 55px;
+}
+.featured-img .icon-delete{
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+.featured-img .icon-edit:before, .featured-img .icon-delete:before{
+  background-color: black;
+}
+
+form input, form textarea{
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+form #add-img-upload, form #add-img-link{
+  margin-bottom: 50px;
+}
+
+.hidden{
+  display: none !important;
+}
+.red a, .red, .red a:visited{
+  background: red;
+  border: 0;
+  padding: 10px 24px;
+  color: white;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+.red a:hover, .red:hover, .red a:visited:hover{
+  background: rgb(177, 1, 1);
 }

@@ -258,3 +258,32 @@
   new PureCounter();
 
 })()
+
+/**
+ * add trick or edit trick
+ */
+function addMedia(containerId, addButtonId) {
+  var container = document.getElementById(containerId);
+  var addButton = document.getElementById(addButtonId);
+
+  if(addButton){
+    addButton.addEventListener('click', function() {
+      //don't create a new input unless the previous one is filled
+      var lastInput = container.querySelector('input:last-child, textarea:last-child');
+      if (!lastInput || lastInput.value.trim() !== '') {
+        var prototype = container.getAttribute('data-prototype');
+        var index = container.children.length;
+
+        var newForm = prototype.replace(/__name__/g, index);
+
+        var wrapper = document.createElement('div');
+        wrapper.innerHTML = newForm;
+
+        container.appendChild(wrapper.firstChild);
+      }
+        
+    });  
+  }
+}
+addMedia('img-upload-container', 'add-img-upload');
+addMedia('video-link-container', 'add-video-link');

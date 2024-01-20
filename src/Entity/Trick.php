@@ -105,7 +105,7 @@ class Trick
         return $this->media;
     }
 
-    public function addMedium(Media $medium): static
+    public function addMedium(Media $medium): self
     {
         if (!$this->media->contains($medium)) {
             $this->media->add($medium);
@@ -115,9 +115,10 @@ class Trick
         return $this;
     }
 
-    public function removeMedium(Media $medium): static
+    public function removeMedium(Media $medium): self
     {
-        if ($this->media->removeElement($medium)) {
+        if ($this->media->contains($medium)) {
+            $this->media->removeElement($medium);
             // set the owning side to null (unless already changed)
             if ($medium->getTrick() === $this) {
                 $medium->setTrick(null);
@@ -241,12 +242,11 @@ class Trick
         return $this;
     }
 
-    public function removeFeaturedImg(Media $featuredImg): static
-{
-    if ($this->featured_img === $featuredImg) {
+    public function removeFeaturedImg(): static
+    {
+        
         $this->setFeaturedImg(null);
-    }
 
-    return $this;
-}
+        return $this;
+    }
 }

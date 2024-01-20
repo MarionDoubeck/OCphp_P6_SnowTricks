@@ -4,21 +4,34 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ErrorController extends AbstractController
 {
     public function handleError(\Throwable $exception): Response
-    {   dd($exception);
-        if (method_exists($exception, 'getStatusCode') && $exception->getStatusCode() === 404){
-            return $this->render('error/error404.html.twig', []);
-        } elseif (method_exists($exception, 'getStatusCode')) {
-            return $this->render('error/error.html.twig', [
-                'exception_message' => 'Une erreur s\'est produite',
-            ]);
+    {
+        $statusCode = null;
+        $exceptionMessage = 'Une erreur s\'est produite';
+        if ($exception instanceof HttpException) {
+            $statusCode = $exception->getStatusCode();
+
+            if ($statusCode === 404) {
+                return $this->render('error/error404.html.twig', [
+                    'exception' => $exception,
+                ]);
+            } else {
+                return $this->render('error/error.html.twig', [
+                    'statusCode' => $statusCode,
+                    'exception' => $exception,
+                    'exception_message' => $exceptionMessage,
+                ]);
+            }
         } else {
-            dd($exception);
+            // Handle other exceptions here
             return $this->render('error/error.html.twig', [
-                'exception_message' => 'Une erreur s\'est produite',
+                'statusCode' => $statusCode,
+                'exception' => $exception,
+                'exception_message' => $exceptionMessage,
             ]);
         }
     }
