@@ -35,6 +35,9 @@
       </div>
 
       {% if trick.media %}
+      <div id="toggleMediaRow">
+        <button class="btn btn-primary">Afficher/Masquer les médias</button>
+      </div>
         <div class="row mb-3 media-row">
           {% for medium in trick.media %}
             {% if medium != trick.featuredImg %}
@@ -99,6 +102,8 @@
         {% set endIndex = startIndex + commentsPerPage - 1 %}
         {% set totalPages = (trick.getSortedComments() | length / commentsPerPage) | round(0, 'ceil') %}
 
+
+        <div id="comments">
         {% for comment in trick.getSortedComments() | slice(startIndex, endIndex) %}
         
         <div class="resume-item pb-0">
@@ -111,18 +116,19 @@
         </div>
         <Hr>
         {% endfor %}
+      </div>
 
         <div class="pagination">
             {% if page > 1 %}
-              <a href="?page={{ page - 1 }}">Page précédente</a>
+              <a href="?page={{ page - 1 }}#comments">Page précédente</a>
             {% endif %}
   
             {% for i in 1..totalPages %}
-              <a href="?page={{ i }}" {% if i == page %}class="active"{% endif %}>{{ i }}</a>
+              <a href="?page={{ i }}#comments" {% if i == page %}class="active"{% endif %}>{{ i }}</a>
             {% endfor %}
   
             {% if page < totalPages %}
-              <a href="?page={{ page + 1 }}">Page suivante</a>
+              <a href="?page={{ page + 1 }}#comments">Page suivante</a>
             {% endif %}
           </div>
       </div>

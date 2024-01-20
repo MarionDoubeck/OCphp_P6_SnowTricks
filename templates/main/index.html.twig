@@ -49,18 +49,31 @@
                 {% for trick in tricks %}
                 <div class="col-lg-4 col-md-6 portfolio-item filter-{{trick.category.slug}} {% if app.user == trick.user %}filter-mine{% endif %}">
                   <div class="portfolio-wrap">
-                    <img src="assets/img/bg.jpeg" class="img-fluid" alt="">
-                    <div class="portfolio-title d-flex flex-column align-items-center justify-content-center">{{trick.name}}</div>
-                    <div class="portfolio-info">
-                      <h4>{{trick.name}}</h4>
-                      <p>{{trick.category.name}}</p>
-                    </div>
-                    <div class="portfolio-links">
-                      <a href="/tricks/{{trick.slug}}" title="Details"><i class="bx bx-plus"></i></a>
+                    {% if trick.featuredImg %}
+                          <img src="{{ asset('assets/media/' ~ trick.featuredImg.path) }}" alt="{{ trick.featuredImg.description }}" class="img-fluid">
+                    {% else %}
+                          <img src="{{ asset('assets/img/bg.jpeg') }}" alt="pas d'image à la une" class="img-fluid">
+                    {% endif %}
+                    <div class="mobile-wrap">
+                      <div class="portfolio-title d-flex flex-column align-items-center justify-content-center"><a href="/tricks/{{trick.slug}}" title="Details">{{trick.name}}</a></div>
                       {% if app.user == trick.user and app.user.isVerified == TRUE %}
                         <a href="/tricks/{{trick.slug}}/edit" title="Modifier le trick"><i class="icon-edit"></i></a>
                         <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick" onclick="return confirm('Voulez-vous vraiment supprimer ce trick?');"><i class="icon-delete"></i></a>
                       {% endif %}
+                    </div>
+                    <div class="desktop-wrap">
+                      <div class="portfolio-title d-flex flex-column align-items-center justify-content-center">{{trick.name}}</div>
+                      <div class="portfolio-info">
+                        <h4>{{trick.name}}</h4>
+                        <p>{{trick.category.name}}</p>
+                      </div>
+                      <div class="portfolio-links">
+                        <a href="/tricks/{{trick.slug}}" title="Details"><i class="bx bx-plus"></i></a>
+                        {% if app.user == trick.user and app.user.isVerified == TRUE %}
+                          <a href="/tricks/{{trick.slug}}/edit" title="Modifier le trick"><i class="icon-edit"></i></a>
+                          <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick" onclick="return confirm('Voulez-vous vraiment supprimer ce trick?');"><i class="icon-delete"></i></a>
+                        {% endif %}
+                      </div>
                     </div>
                   </div>
                 </div>

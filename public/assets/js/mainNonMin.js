@@ -287,3 +287,19 @@ function addMedia(containerId, addButtonId) {
 }
 addMedia('img-upload-container', 'add-img-upload');
 addMedia('video-link-container', 'add-video-link');
+
+//toggle media mobile
+document.addEventListener('DOMContentLoaded', function () {
+  var mediaRow = document.querySelector('.media-row');
+  var toggleButton = document.getElementById('toggleMediaRow');
+
+  if (mediaRow && toggleButton) {
+    toggleButton.addEventListener('click', function () {
+      if (mediaRow.style.display === 'none' || mediaRow.style.display === '') {
+        mediaRow.style.display = 'block';
+      } else {
+        mediaRow.style.display = 'none';
+      }
+    });
+  }
+});

@@ -34,6 +34,9 @@
       </div>
 
       {% if trick.media %}
+      <div id="toggleMediaRow">
+        <button type="button" class="btn btn-primary">Afficher/Masquer les médias</button>
+      </div>
         <div class="row mb-5 media-row">
           {% for medium in trick.media %}
             {% if medium != trick.featuredImg %}
@@ -47,7 +50,9 @@
                     {{ medium.path|raw }}
                 {% endif %}
             </div>
-            <a href="/tricks/media/{{medium}}/delete" title="Supprimer le media" onclick="return confirm('Voulez-vous vraiment supprimer ce media?');"><i class="icon-delete"></i> supprimer</a>
+            <div class="delete-media">
+            <a href="/tricks/media/{{medium}}/delete" title="Supprimer le media" onclick="return confirm('Voulez-vous vraiment supprimer ce media?');"><i class="icon-delete-black"></i></a>
+            </div>
             </div>
             {% endif %}
         {% endfor %}

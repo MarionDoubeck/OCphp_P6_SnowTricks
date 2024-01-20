@@ -808,6 +808,11 @@ section {
   z-index: 2;
   opacity: 0;
 }
+@media (max-width: 767px) {
+  .portfolio .portfolio-wrap::before {
+    display: none;
+  }
+}
 
 .portfolio .portfolio-wrap .portfolio-info {
   opacity: 0;
@@ -872,7 +877,6 @@ section {
   opacity: 1;
   bottom: calc(50% - 50px);
 }
-
 /*--------------------------------------------------------------
 # Portfolio Details
 --------------------------------------------------------------*/
@@ -1196,6 +1200,11 @@ button[type=submit]:hover, button.pink:hover {
 .portfolio-title{
   background: #309ad4;
   color: white;
+  margin: 0 auto;
+}
+.portfolio-title a, .portfolio-title a:visited{
+  background: #309ad4;
+  color: white;
 }
 
 .portfolio-link{
@@ -1223,13 +1232,34 @@ button[type=submit]:hover, button.pink:hover {
   height: 37px !important;
 }
 .icon-delete-black:before{
+  display: block;
   content: url("../img/trash-can-none.svg");
   margin-bottom: 2px;
+  padding: 6px 0px 0px 8px !important;
+  border-radius: 100%;
+  width: 37px !important;
+  height: 37px !important;
+  background-color: #92b0e4;
 }
+
+.delete-media{
+  width: 100%;
+  margin-top : 10px;
+}
+.delete-media a{
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+}
+
 .icon-edit:hover:before{
   color: #476db0;
 }
 .icon-delete:hover:before {
+  content: url("../img/tc-blue.svg");
+  margin-bottom: 2px;
+}
+.icon-delete-black:hover:before {
   content: url("../img/tc-blue.svg");
   margin-bottom: 2px;
 }
@@ -1296,4 +1326,43 @@ form #add-img-upload, form #add-img-link{
 }
 .red a:hover, .red:hover, .red a:visited:hover{
   background: rgb(177, 1, 1);
+}
+
+@media (max-width: 767px) {
+  .media-row {
+    display: none;
+  }
+  #toggleMediaRow{
+    width: 100%;
+    margin-bottom: 30px;;
+  }
+  #toggleMediaRow button{
+    width: 100%;
+    margin: 0 auto;
+    background-color: #92b0e4;
+    color: #5a656e;
+  }
+  .desktop-wrap{
+    display: none;
+  }
+  .mobile-wrap{
+    display: flex;
+    width: 100%;
+    background: #309ad4;
+    color: white;
+    margin: 0 auto;
+  }
+}
+@media (min-width: 768px) {
+ #toggleMediaRow{
+  display: none;
+ }
+ .mobile-wrap{
+  display: none;
+ }
+}
+
+.portfolio-wrap img{
+  width: 416px;
+  height: 234px;
 }
