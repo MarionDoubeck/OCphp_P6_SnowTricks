@@ -11,8 +11,6 @@ gérer les cas où $em->persist($user);
 
 ajouter les vérification de mail bien envoyé
 
-pb date 2h décalage
-
 check balise iframe
 
 supprimer les medias du dossier media quand ils sont supprimés de la bdd

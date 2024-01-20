@@ -92,8 +92,15 @@
             </div>
         {% endif %}
 
-        {% for comment in trick.getSortedComments() %}
-        {# pour la moitié : <div class="col-lg-6"></div> #}
+        {# pagination #}
+        {% set page = app.request.query.get('page', 1) %}
+        {% set commentsPerPage = 10 %}
+        {% set startIndex = (page - 1) * commentsPerPage %}
+        {% set endIndex = startIndex + commentsPerPage - 1 %}
+        {% set totalPages = (trick.getSortedComments() | length / commentsPerPage) | round(0, 'ceil') %}
+
+        {% for comment in trick.getSortedComments() | slice(startIndex, endIndex) %}
+        
         <div class="resume-item pb-0">
           <img src="{{ comment.user.avatar is not null ? asset('assets/avatars/' ~ comment.user.avatar) : asset('assets/avatars/default.png') }}"
           style="height: 35px; width:35px; border-radius:100%;" alt="photo de l'auteur">
@@ -104,6 +111,20 @@
         </div>
         <Hr>
         {% endfor %}
+
+        <div class="pagination">
+            {% if page > 1 %}
+              <a href="?page={{ page - 1 }}">Page précédente</a>
+            {% endif %}
+  
+            {% for i in 1..totalPages %}
+              <a href="?page={{ i }}" {% if i == page %}class="active"{% endif %}>{{ i }}</a>
+            {% endfor %}
+  
+            {% if page < totalPages %}
+              <a href="?page={{ page + 1 }}">Page suivante</a>
+            {% endif %}
+          </div>
       </div>
 
     </div>
