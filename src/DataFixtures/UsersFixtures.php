@@ -58,6 +58,6 @@ class UsersFixtures extends Fixture
 
         $manager->flush();
 
-    }//end load()
+    }// End load()
 
 }

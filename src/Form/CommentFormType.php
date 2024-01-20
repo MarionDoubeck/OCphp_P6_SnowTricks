@@ -34,27 +34,11 @@ class CommentFormType extends AbstractType
                     new Length([
                         'min' => 5,
                         'minMessage' => 'Votre message doit faire entre {{ limit }} et 4096 caractères',
-                        // max length allowed by Symfony for security reasons
+                        // Max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],
             ])
-           /*  ->add('user', EntityType::class, [
-                'class' => User::class,
-                'attr' => [
-                    'hidden' => true
-                ],
-                'label' => false,
-                'data' => $options['user'],
-            ])
-            ->add('trick', EntityType::class, [
-                'class' => Trick::class,
-                'attr' => [
-                    'hidden' => true
-                ],
-                'label' => false,
-                'data' => $options['trick'],
-            ]) */
         ;
     }
 

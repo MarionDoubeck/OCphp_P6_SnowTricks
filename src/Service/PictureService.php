@@ -49,17 +49,17 @@ class PictureService
 
         // Check the orientation of the image
         switch ($imageWidth <=> $imageHeight) {
-            case -1: // portrait
+            case -1: // Portrait
                 $squareSize = $imageWidth;
                 $srcX = 0;
                 $srcY = ($imageHeight - $squareSize) / 2;
                 break;
-            case 0: // square
+            case 0: // Square
                 $squareSize = $imageWidth;
                 $srcX = 0;
                 $srcY = 0;
                 break;
-            case 1: // landscape
+            case 1: // Landscape
                 $squareSize = $imageHeight;
                 $srcX = ($imageWidth - $squareSize) / 2;
                 $srcY = 0;

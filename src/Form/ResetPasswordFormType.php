@@ -15,8 +15,7 @@ class ResetPasswordFormType extends AbstractType
     {
         $builder
         ->add('plainPassword', PasswordType::class, [
-            // instead of being set onto the object directly,
-            // this is read and encoded in the controller
+            // Instead of being set onto the object directly, this is read and encoded in the controller
             'label' => 'Nouveau mot de passe',
             'mapped' => false,
             'attr' => [
@@ -30,17 +29,11 @@ class ResetPasswordFormType extends AbstractType
                 new Length([
                     'min' => 6,
                     'minMessage' => 'Your password should be at least {{ limit }} characters',
-                    // max length allowed by Symfony for security reasons
+                    // Max length allowed by Symfony for security reasons
                     'max' => 4096,
                 ]),
             ],
         ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            // Configure your form options here
-        ]);
-    }
 }

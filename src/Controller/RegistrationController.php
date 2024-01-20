@@ -39,7 +39,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -47,7 +47,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            //avatar upload
+            // Avatar upload
             $avatarFile = $form->get('avatar')->getData();
             if ($avatarFile instanceof UploadedFile) {
                 // Generate unique filename
@@ -59,27 +59,24 @@ class RegistrationController extends AbstractController
                     $newFilename
                 );
 
-                //update avatar path in user entity
+                // Update avatar path in user entity
                 $user->setAvatar($newFilename);
             }
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            //Generate user's JWT
-            //create Header
+            // Generate user's JWT
             $header = [
                 'typ' => 'JWT',
                 'alg' => 'HS256',
             ];
-            //create payload
             $payload = [
                 'user_id' => $user->getId(),
             ];
-            //generate Token
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-            //Send the mail
+            // Send the mail
             $mail->send(
                 'no-reply@freestyle.net',
                 $user->getEmail(),
@@ -142,20 +139,17 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('main', ['_fragment' => 'flash']);    
         }
 
-        //Generate user's JWT
-        //create Header
+        // Generate user's JWT
         $header = [
             'typ' => 'JWT',
             'alg' => 'HS256',
         ];
-        //create payload
         $payload = [
             'user_id' => $user->getId(),
         ];
-        //generate Token
         $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
 
-        //Send the mail
+        // Send the mail
         $mail->send(
             'no-reply@freestyle.net',
             $user->getEmail(),

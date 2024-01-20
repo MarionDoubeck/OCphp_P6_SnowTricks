@@ -52,7 +52,7 @@ class AddTrickFormType extends AbstractType
                     new Length([
                         'min' => 20,
                         'minMessage' => 'La description du trick doit faire entre {{ limit }} et 4096 caractères',
-                        // max length allowed by Symfony for security reasons
+                        // Max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
                 ],

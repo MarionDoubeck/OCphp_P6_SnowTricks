@@ -64,7 +64,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->comments = new ArrayCollection();
-        //$this->parent = new ArrayCollection();
         $this->tricks = new ArrayCollection();
 
     }//end_construct()
@@ -291,7 +290,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeTrick(Trick $trick): static
     {
         if ($this->tricks->removeElement($trick)) {
-            // set the owning side to null (unless already changed)
+            // Set the owning side to null (unless already changed)
             if ($trick->getUser() === $this) {
                 $trick->setUser(null);
             }
@@ -324,7 +323,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    //not to have error in forms
+    // Not to have error in forms
     public function __toString()
     {
         return $this->getUserIdentifier();

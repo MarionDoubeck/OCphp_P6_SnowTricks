@@ -21,10 +21,6 @@ class SecurityController extends AbstractController
     #[Route(path: '/connexion', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        /* if ($this->getUser()) {
-            return $this->redirectToRoute('main');
-        } */
-
         // Get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // Last username entered by the user
@@ -55,19 +51,19 @@ class SecurityController extends AbstractController
 
         $form->handleRequest($request);
         if($form->isSubmitted() === TRUE && $form->isValid() === TRUE){
-            //look for user from username
+            // Look for user from username
             $user = $userRepository->findOneByUsername($form->get('username')->getData());
             if($user){
-                //generate reset Token
+                // Generate reset Token
                 $token = $tokenGeneratorInterface->generateToken();
                 $user->setResetToken($token);
                 $em->persist($user);
                 $em->flush();
 
-                //generate reset password link
+                // Generate reset password link
                 $url = $this->generateUrl('reset_pass', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                //Send the mail
+                // Send the mail
                 $mail->send(
                     'no-reply@freestyle.net',
                     $user->getEmail(),
@@ -83,7 +79,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            //else : if $user doesn't exist with this username (===null)
+            // Else : if $user doesn't exist with this username (===null)
             $this->addFlash('danger', 'Nom d\'utilisateur inconnu');
             return $this->redirectToRoute('app_login');
         }
@@ -93,7 +89,7 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    //route for resetpassword link
+    // Route for resetpassword link
     #[Route(path: '/oubli-passe/{token}', name: 'reset_pass')]
     public function resetPass(
         string $token,
@@ -103,15 +99,15 @@ class SecurityController extends AbstractController
         UserPasswordHasherInterface $passwordHasher
     ): Response
     {
-        //check token
+        // Check token
         $user = $userRepository->findOneByResetToken($token);
         if($user){
             $form = $this->createForm(ResetPasswordFormType::class);
             $form->handleRequest($request);
             if($form->isSubmitted() === TRUE && $form->isValid() === TRUE){
-                //delete token
+                // Delete token
                 $user->setResetToken(null);
-                // encode the plain password
+                // Encode the plain password
                 $user->setPassword(
                     $passwordHasher->hashPassword(
                         $user,
@@ -130,7 +126,7 @@ class SecurityController extends AbstractController
                 'passForm' => $form->createView(),
             ]);
         }
-        //else : if $user doesn't exist with this username (===null)
+        // Else : if $user doesn't exist with this username (===null)
         $this->addFlash('danger', 'Ce lien n\'est pas valide');
         return $this->redirectToRoute('app_login');
     }

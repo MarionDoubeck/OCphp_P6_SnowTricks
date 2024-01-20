@@ -54,9 +54,8 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             $user = $this->getReference('user_'.rand(1,5));
             $trick->setUser($user);
             $trick->setDescription($faker->text(200));
-            //$trick->setSlug($this->slugger->slug(mb_strtolower($trick->getName(), 'UTF-8')));
             $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $trick->getName());
-    $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug); // Supprime les caractères non autorisés
+    $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug); // Delete non authorized characters
     $slug = strtolower($slug);
     $trick->setSlug($slug);
             $manager->persist($trick);
@@ -66,7 +65,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
         }
 
         $manager->flush();
-    }//end load()
+    }// End load()
 
 
     /**
