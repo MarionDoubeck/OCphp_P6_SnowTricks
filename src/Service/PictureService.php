@@ -17,17 +17,17 @@ class PictureService
 
     public function add(UploadedFile $picture, ?string $folder = '', ?int $width = 250, ?int $height = 250)
     {
-        // Generate a new name for the image
+        // Generate a new name for the image.
         $file = md5(uniqid(rand(), true)) . '.webp';
 
-        // Get image information
+        // Get image information.
         $pictureInfo = getimagesize($picture);
 
         if ($pictureInfo === false) {
             throw new Exception('Taille d\'image incorrecte');
         }
 
-        // Check the image format
+        // Check the image format.
         switch ($pictureInfo['mime']) {
             case 'image/png':
                 $pictureSource = imagecreatefrompng($picture);
@@ -42,43 +42,43 @@ class PictureService
                 throw new Exception('Format d\'image incorrecte');
         }
 
-        // Crop the image
-        // Get image dimensions
+        // Crop the image.
+        // Get image dimensions.
         $imageWidth = $pictureInfo[0];
         $imageHeight = $pictureInfo[1];
 
-        // Check the orientation of the image
+        // Check the orientation of the image.
         switch ($imageWidth <=> $imageHeight) {
-            case -1: // Portrait
+            case -1: // Portrait.
                 $squareSize = $imageWidth;
                 $srcX = 0;
                 $srcY = ($imageHeight - $squareSize) / 2;
                 break;
-            case 0: // Square
+            case 0: // Square.
                 $squareSize = $imageWidth;
                 $srcX = 0;
                 $srcY = 0;
                 break;
-            case 1: // Landscape
+            case 1: // Landscape.
                 $squareSize = $imageHeight;
                 $srcX = ($imageWidth - $squareSize) / 2;
                 $srcY = 0;
                 break;
         }
 
-        // Create a new "blank" image
+        // Create a new "blank" image.
         $resizedPicture = imagecreatetruecolor($width, $height);
 
         imagecopyresampled($resizedPicture, $pictureSource, 0, 0, $srcX, $srcY, $width, $height, $squareSize, $squareSize);
 
         $path = $this->params->get('images_directory') . $folder;
 
-        // Create the destination folder if it doesn't exist
+        // Create the destination folder if it doesn't exist.
         if (!file_exists($path . '/mini/')) {
             mkdir($path . '/mini/', 0755, true);
         }
 
-        // Store the cropped image
+        // Store the cropped image.
         imagewebp($resizedPicture, $path . '/mini/' . $width . 'x' . $height . '-' . $file);
 
         $picture->move($path . '/', $file);

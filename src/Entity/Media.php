@@ -128,7 +128,7 @@ class Media
         return $this;
     }
 
-    //not to have error in forms
+    // Not to have error in forms.
     public function __toString()
     {
         return $this->getId();

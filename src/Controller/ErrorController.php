@@ -27,7 +27,7 @@ class ErrorController extends AbstractController
                 ]);
             }
         } else {
-            // Handle other exceptions here
+            // Handle other exceptions here.
             return $this->render('error/error.html.twig', [
                 'statusCode' => $statusCode,
                 'exception' => $exception,

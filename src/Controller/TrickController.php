@@ -38,7 +38,7 @@ class TrickController extends AbstractController
                 $slug = $slugger->slug(mb_strtolower($trick->getName(), 'UTF-8'));
                 $trick->setSlug($slug);
                 $trick->setUser($this->getUser());
-                //featured img
+                // Featured img.
                 $featuredImg = $addTrickForm->get('isFeatured')->getData();
                 if ($featuredImg !== null){
                     $newFilename = uniqid().'.'.$featuredImg->guessExtension();
@@ -54,7 +54,7 @@ class TrickController extends AbstractController
                     $em->persist($newMedia);
                     $trick->setFeaturedImg($newMedia);
                 }
-                //other media
+                // Other media.
                 $this->processImageUpload($addTrickForm, $trick, $em, $featuredImg);
                 $this->processVideoCode($addTrickForm, $trick, $em);
 
@@ -116,7 +116,7 @@ class TrickController extends AbstractController
         $VideoCodes = $form->get('videoEmbdedCode')->getData();
         foreach ($VideoCodes as $mediaPath) {
             if ($mediaPath !== null){
-                // Unable autoplay=1
+                // Unable autoplay.
                 if (strpos($mediaPath, "autoplay=1") !== false) {
                     $mediaPath = str_replace("autoplay=1", "autoplay=0", $mediaPath);
                     $mediaPath = str_replace("autoplay=true", "autoplay=false", $mediaPath);

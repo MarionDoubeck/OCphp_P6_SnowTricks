@@ -55,7 +55,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             $trick->setUser($user);
             $trick->setDescription($faker->text(200));
             $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $trick->getName());
-    $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug); // Delete non authorized characters
+    $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug); // Delete non authorized characters.
     $slug = strtolower($slug);
     $trick->setSlug($slug);
             $manager->persist($trick);

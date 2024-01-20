@@ -119,7 +119,7 @@ class Trick
     {
         if ($this->media->contains($medium)) {
             $this->media->removeElement($medium);
-            // Set the owning side to null (unless already changed)
+            // Set the owning side to null (unless already changed).
             if ($medium->getTrick() === $this) {
                 $medium->setTrick(null);
             }
@@ -161,7 +161,7 @@ class Trick
     public function removeComment(Comment $comment): static
     {
         if ($this->comment->removeElement($comment)) {
-            // Set the owning side to null (unless already changed)
+            // Set the owning side to null (unless already changed).
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
             }
@@ -170,7 +170,7 @@ class Trick
         return $this;
     }
 
-    // Not to have error in forms
+    // Not to have error in forms.
     public function __toString()
     {
         return $this->getName();
