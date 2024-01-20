@@ -59,7 +59,7 @@
                       <a href="/tricks/{{trick.slug}}" title="Details"><i class="bx bx-plus"></i></a>
                       {% if app.user == trick.user and app.user.isVerified == TRUE %}
                         <a href="/tricks/{{trick.slug}}/edit" title="Modifier le trick"><i class="icon-edit"></i></a>
-                        <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick"><i class="icon-delete"></i></a>
+                        <a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick" onclick="return confirm('Voulez-vous vraiment supprimer ce trick?');"><i class="icon-delete"></i></a>
                       {% endif %}
                     </div>
                   </div>

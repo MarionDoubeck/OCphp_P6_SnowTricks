@@ -7,6 +7,6 @@ tricks_delete:
     methods: ['POST', 'GET']
 
 media_delete:
-    path: /tricks/{media}/delete
+    path: /tricks/media/{media}/delete
     controller: 'App\Controller\TrickController::deleteMedia'
     methods: ['POST', 'GET']

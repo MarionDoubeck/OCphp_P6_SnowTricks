@@ -1,78 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifiez un trick{% endblock %}
+{% block title %}Modifier un trick{% endblock %}
 
 {% block body %}
 <main id="main">
 
-    <!-- ======= Breadcrumbs Section ======= -->
-    <section class="breadcrumbs">
-      <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-          <h2>Modifiez un trick</h2>
+  <!-- ======= Breadcrumbs Section ======= -->
+  <section class="breadcrumbs">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Modifier un trick</h2>
+      </div>
+    </div>
+  </section><!-- End Breadcrumbs Section -->
+
+  {% if app.user and app.user == trick.user %} 
+    {{ form_start(addTrickForm) }}  
+  <section id="portfolio-details" class="portfolio-details">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="featured-img">
+          {% if trick.featuredImg %}
+              <a href="{{ asset('assets/media/' ~ trick.featuredImg.path) }}">
+                <img src="{{ asset('assets/media/' ~ trick.featuredImg.path) }}" alt="{{ trick.featuredImg.description }}" class="img-fluid">
+              </a>
+          {% else %}
+              <a href="{{ asset('assets/img/bg.jpeg') }}">
+                <img src="{{ asset('assets/img/bg.jpeg') }}" alt="pas d'image à la une" class="img-fluid">
+              </a>
+          {% endif %}
+        </div>
+        <strong>Modifier l'image principale : </strong> {{ form_row(addTrickForm.isFeatured, {'label': false}) }}
+      </div>
+
+      {% if trick.media %}
+        <div class="row mb-5 media-row">
+          {% for medium in trick.media %}
+            {% if medium != trick.featuredImg %}
+            <div class="col-lg-2 col-md-4 col-sm-6 mb-3">
+              <div class="medium">
+                {% if medium.type == "image" %}
+                    <a href="{{ asset('assets/media/' ~ medium.path) }}">
+                      <img src="{{ asset('assets/media/' ~ medium.path) }}" alt="{{ medium.description }}" class="img-fluid">
+                    </a>
+                {% elseif medium.type == "video" %}
+                    {{ medium.path|raw }}
+                {% endif %}
+            </div>
+            <a href="/tricks/media/{{medium}}/delete" title="Supprimer le media" onclick="return confirm('Voulez-vous vraiment supprimer ce media?');"><i class="icon-delete"></i> supprimer</a>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+      {% endif %}
+      <div id="img-upload-container" data-prototype="{{ form_widget(addTrickForm.images.vars.prototype)|e }}">
+        {# Previously loaded media #}
+      </div>
+      {{ form_row(addTrickForm.images)}}
+      <button type="button" id="add-img-upload">Ajouter une image depuis votre ordinateur</button>
+      {% if addTrickForm.images|length > 0 %}
+              <div class="image-featured-checkbox-container">
+                  {{ form_row(addTrickForm.isFeatured, {
+                      'label': 'Choisir comme image principale',
+                      'attr': {'class': 'image-featured-checkbox'}
+                  }) }}
+              </div>
+          {% endif %}
+
+      <div id="video-link-container" data-prototype="{{ form_widget(addTrickForm.videoEmbdedCode.vars.prototype)|e }}">
+        {# Previously entered embded codes #}
+      </div>
+      {{ form_row(addTrickForm.videoEmbdedCode)}}
+      <button type="button" id="add-video-link">Ajouter une video avec un code embded</button>
+
+      <div class="row mb-3">
+        <div class="portfolio-info">
+          <h3>{{ form_row(addTrickForm.name)}}</h3>
+          <ul>
+            <li><strong>Description</strong>: {{ form_row(addTrickForm.description, {'label': false}) }}</li>
+            <li><strong>Categorie</strong>: {{ form_row(addTrickForm.category, {'label': false}) }}</li>
+            <li class="smaller"><strong>Auteur</strong>: {{trick.user}} &nbsp;&nbsp;&nbsp;<strong>Créé le</strong>: {{trick.createdAt|date('d/m/Y H:i:s', 'Europe/Paris')}} &nbsp;&nbsp;&nbsp;<strong>Dernière modification le</strong>: {{ trick.editedAt ? trick.editedAt|date('d/m/Y H:i:s') : 'Non modifié' }}</li>
+          </ul>
         </div>
       </div>
-    </section><!-- End Breadcrumbs Section -->
+    </div>
+    <div class="container">
+        <div class="text-center my-3 mt-5"><button type="submit">Modifier votre figure</button></div>
+      </div>
+      
+      {{ form_end(addTrickForm) }}
 
-
-    {% if app.user and app.user == trick.user %} 
-    {{ form_start(addTrickForm) }}      
-      <section id="portfolio-details" class="portfolio-details">
-        <div class="container">
-          <div class="row mb-3">
-            <div class="featured-img">
-              <img src="{{asset('assets/img/bg.jpeg')}}" alt="medium-description">
-              <a href="#" title="Modifier l'image à la une'"><i class="icon-edit"></i></a>
-            </div>
-          </div>
-          
-          {% if trick.media %}
-          <div class="row mb-3 media-row">
-            {% for medium in trick.media %}
-            <div class="medium">
-              <img src="{{asset('assets/media/' ~ medium.path)}}" alt="{{medium.description}}">
-              <a href="{{ path('media_delete', {'media': medium.id}) }}" title="Supprimer le media"><i class="icon-delete-black"></i></a>
-            </div>
-            {% endfor %}
-            <ul style="width:100%">
-              <li>{{ form_row(addTrickForm.mediaUpload)}}</li>
-              <li>{{ form_row(addTrickForm.mediaExternalLink) }}</li>
-            </ul>
-            
-          </div>
-          {% endif %}
-          
-          <div class="row mb-3">
-            <div class="portfolio-info">
-              <h3>{{ form_row(addTrickForm.name)}}</h3>
-              <ul>
-                <li>{{ form_row(addTrickForm.description)}}</li>
-                
-                <li>{{ form_row(addTrickForm.category)}}</li>
-                
-                  <li class="smaller"><strong>Auteur</strong>: {{trick.user}} &nbsp;&nbsp;&nbsp;<strong>Créé le</strong>: {{trick.createdAt|date('d/m/Y H:i:s', 'Europe/Paris')}} &nbsp;&nbsp;&nbsp;<strong>Dernière modification le</strong>: {{ trick.editedAt ? trick.editedAt|date('d/m/Y H:i:s') : 'Non modifié' }}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="container">
-            <div class="text-center my-3 mt-5"><button type="submit">Modifier votre figure</button></div>
-          </div>
-          
-          {{ form_end(addTrickForm) }}
-        </section>
-    
-    {% else %}
-      <section class="inner-page">
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="text-center mt-5">Vous devez être l'auteur de ce trick pour pouvoir le modifier</div>
-            <div class="text-center mb-5"><a href="/tricks/{{trick.slug}}">Commentez-le pour demander une modification à son auteur</a></div>
-          </div>
+      <div class="container">
+        <div class="text-center my-3 mt-5">
+          <button class="red"><a href="/tricks/{{trick.slug}}/delete" title="Supprimer le trick" onclick="return confirm('Voulez-vous vraiment supprimer ce trick?');">Supprimez ce trick</a></button>
         </div>
-      </section>
-    {% endif %}
+      </div>
+      
+    </section>
+
+{% else %}
+  <section class="inner-page">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="text-center mt-5">Vous devez être l'auteur de ce trick pour pouvoir le modifier</div>
+        <div class="text-center mb-5"><a href="/tricks/{{trick.slug}}">Commentez-le pour demander une modification à son auteur</a></div>
+      </div>
+    </div>
+  </section>
+{% endif %}
 
 </main>
 {% endblock %}

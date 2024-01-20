@@ -22,11 +22,28 @@
           {{ form_row(addTrickForm.category)}}
             {{ form_row(addTrickForm.name)}}
             {{ form_row(addTrickForm.description)}}
-            <div id="medias-container" data-prototype="{{ form_widget(addTrickForm.media.vars.prototype)|e }}">
+            {{ form_row(addTrickForm.isFeatured)}}
+            <div id="img-upload-container" data-prototype="{{ form_widget(addTrickForm.images.vars.prototype)|e }}">
               {# Affichez les médias existants ici s'ils en ont déjà #}
             </div>
-            {{ form_row(addTrickForm.media)}}
-            <button type="button" id="add-media">Ajouter un média</button>
+            {{ form_row(addTrickForm.images)}}
+            <button type="button" id="add-img-upload">Ajouter une image depuis votre ordinateur</button>
+            {% if addTrickForm.images|length > 0 %}
+                    <div class="image-featured-checkbox-container">
+                        {{ form_row(addTrickForm.isFeatured, {
+                            'label': 'Choisir comme image principale',
+                            'attr': {'class': 'image-featured-checkbox'}
+                        }) }}
+                    </div>
+                {% endif %}
+
+            <div id="video-link-container" data-prototype="{{ form_widget(addTrickForm.videoEmbdedCode.vars.prototype)|e }}">
+              {# Affichez les médias existants ici s'ils en ont déjà #}
+            </div>
+            {{ form_row(addTrickForm.videoEmbdedCode)}}
+            <button type="button" id="add-video-link">Ajouter une video avec un code embded</button>
+
+
             <div class="text-center my-3 mt-5"><button type="submit">Publier votre figure</button></div>
             {{ form_end(addTrickForm) }}
         </div>
@@ -43,21 +60,5 @@
     {% endif %}
 
 </main>
-<script>
-  var container = document.getElementById('medias-container');
-  var addButton = document.getElementById('add-media');
-
-  addButton.addEventListener('click', function() {
-    var prototype = container.getAttribute('data-prototype');
-    var index = container.children.length;
-
-    var newForm = prototype.replace(/__name__/g, index);
-    
-    var wrapper = document.createElement('div');
-    wrapper.innerHTML = newForm;
-
-    container.appendChild(wrapper.firstChild);
-  });
-</script>
 {% endblock %}
 

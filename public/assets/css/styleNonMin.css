@@ -1244,13 +1244,13 @@ button[type=submit]:hover, button.pink:hover {
   margin-bottom: 10px;
 }
 .medium{
-  width: calc(16.666% - 5px);
-  margin-right: 5px;
-  margin-bottom: 15px;
+  position: relative; 
+  padding-bottom: 56.25%; 
+  height: 0; 
+  overflow: hidden;
 }
-.medium img{
-  width: 100%;
-}
+.medium iframe{position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+
 
 .smaller{
   font-size: 12px;
@@ -1272,4 +1272,28 @@ button[type=submit]:hover, button.pink:hover {
 }
 .featured-img .icon-edit:before, .featured-img .icon-delete:before{
   background-color: black;
+}
+
+form input, form textarea{
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+form #add-img-upload, form #add-img-link{
+  margin-bottom: 50px;
+}
+
+.hidden{
+  display: none !important;
+}
+.red a, .red, .red a:visited{
+  background: red;
+  border: 0;
+  padding: 10px 24px;
+  color: white;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+.red a:hover, .red:hover, .red a:visited:hover{
+  background: rgb(177, 1, 1);
 }

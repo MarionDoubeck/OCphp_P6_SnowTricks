@@ -19,6 +19,12 @@
             <div class="row d-flex justify-content-center">
                 <h1>Une erreur est survenue</h1>
                 <div class="my-5 ms-2">{{exception_message}}</div>
+                {% if statusCode is defined %}
+                    <p>Code erreur : {{ statusCode }}</p>
+                {% endif %}
+                {% if exception is defined %}
+                  <p>Exception : {{ exception }}</p>
+                {% endif %}
                 <a href="{{ path('main')}}" class="ms-3">Retour à l'accueil</a>
             </div>
         </div>

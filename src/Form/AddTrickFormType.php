@@ -7,6 +7,9 @@ use App\Entity\Media;
 use App\Entity\Trick;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -16,7 +19,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\File;
 
 class AddTrickFormType extends AbstractType
 {
@@ -40,7 +42,7 @@ class AddTrickFormType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Description de la figure',
                 'attr' => [
-                    'class' => 'form-control my-2',
+                    'class' => 'form-control my-2 mb-3',
                     'rows' => 6,
                 ],
                 'constraints' => [
@@ -55,18 +57,18 @@ class AddTrickFormType extends AbstractType
                     ]),
                 ],
             ])
-/*             ->add('images', FileType::class, [
-                'label' => false,
-                'multiple' => true,
-                'mapped' => false,
+            ->add('isFeatured', FileType::class, [
+                'label' => 'Choisissez l\'image principale',
+                'by_reference' => false,
                 'required' => false,
+                'mapped' => false,
                 'attr' => [
-                    'class' => 'form-control my-2',
+                    'class' => 'image-upload-row',
                 ],
-            ]) */
-            ->add('media', CollectionType::class, [
+            ])
+            ->add('images', CollectionType::class, [
                 'label' => false,
-                'entry_type' => MediaType::class,
+                'entry_type' => FileType::class,
                 'allow_add' => true, 
                 'allow_delete' => true,
                 'by_reference' => false,
@@ -74,30 +76,29 @@ class AddTrickFormType extends AbstractType
                 'prototype' => true,
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'media-collection',
+                    'class' => 'media-collection my-3',
+                ],
+                'entry_options' => [
+                    'label' => false,
+                    'attr' => [
+                        'class' => 'image-upload-row',
+                    ],
                 ],
             ])
-            /*  
-            ->add('mediaExternalLink', UrlType::class, [
-                'label' => 'Ajouter un media avec un lien externe : ',
-                'required' => false,
-                'mapped' => false,
-                'constraints' => [
-                    // Ajoutez ici les contraintes pour le lien externe
-                ],
-                'attr' => [
-                    'class' => 'my-2 mx-2',
-                ],
-            ]);
-            ->add('media.type', ChoiceType::class, [
-                'choices' => [
-                    'Image' => 'image',
-                    'Video' => 'video',
-                ],
+           ->add('videoEmbdedCode', CollectionType::class, [
+            'label' => false,
+            'entry_type' => TextareaType::class,
+            'allow_add' => true, 
+            'allow_delete' => true,
+            'by_reference' => false,
+            'required' => false,
+            'prototype' => true,
+            'mapped' => false,
+            'error_bubbling' => true,
+            'attr' => [
+                'class' => 'media-collection  my-3 mx-2',
+            ],
             ])
-            ->add('media.path', TextType::class)
-            ->add('media.description', TextareaType::class) */
-
         ;
     }
 

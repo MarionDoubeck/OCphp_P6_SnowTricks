@@ -242,12 +242,11 @@ class Trick
         return $this;
     }
 
-    public function removeFeaturedImg(Media $featuredImg): static
-{
-    if ($this->featured_img === $featuredImg) {
+    public function removeFeaturedImg(): static
+    {
+        
         $this->setFeaturedImg(null);
-    }
 
-    return $this;
-}
+        return $this;
+    }
 }
