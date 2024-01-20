@@ -9,14 +9,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller for the main page.
+ */
 class MainController extends AbstractController
 {
-    #[Route('/', name: 'main')]
-
-    
     /**
-     * @Route("/", name="main")
+     * Displays the main page with categories and tricks.
+     *
+     * @param CategoryRepository $categoryRepository
+     * @param TrickRepository $trickRepository
+     * @return Response
      */
+    #[Route('/', name: 'main')]
     public function index(CategoryRepository $categoryRepository, TrickRepository $trickRepository): Response
     {
         return $this->render('main/index.html.twig', [

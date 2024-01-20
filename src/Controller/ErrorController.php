@@ -6,8 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/**
+ * Controller for handling errors.
+ */
 class ErrorController extends AbstractController
 {
+    /**
+     * Handles errors and displays the appropriate error page.
+     *
+     * @param \Throwable $exception
+     * @return Response
+     */
     public function handleError(\Throwable $exception): Response
     {
         $statusCode = null;

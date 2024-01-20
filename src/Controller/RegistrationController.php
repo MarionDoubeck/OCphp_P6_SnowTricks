@@ -17,14 +17,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Controller for user registration and email verification.
+ */
 class RegistrationController extends AbstractController
 {
-    #[Route('/inscription', name: 'app_register')]
-
-
     /**
-     * @Route("/inscription", name="app_register")
+     * Handles the user registration process.
+     *
+     * @param Request $request
+     * @param UserPasswordHasherInterface $userPasswordHasher
+     * @param UserAuthenticatorInterface $userAuthenticator
+     * @param UserAuthenticator $authenticator
+     * @param EntityManagerInterface $entityManager
+     * @param SendMailService $mail
+     * @param JWTService $jwt
+     * @return Response
      */
+    #[Route('/inscription', name: 'app_register')]
     public function register(
         Request $request, 
         UserPasswordHasherInterface $userPasswordHasher, 
@@ -102,6 +112,16 @@ class RegistrationController extends AbstractController
         ]);
     }
 
+
+    /**
+     * Handles the email verification of the user.
+     *
+     * @param string $token
+     * @param JWTService $jwt
+     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/verif/{token}', name: 'verify_user')]
     public function verifyUser(
         $token, 
@@ -124,6 +144,14 @@ class RegistrationController extends AbstractController
     }
 
 
+    /**
+     * Resends the email verification to the user.
+     *
+     * @param JWTService $jwt
+     * @param SendMailService $mail
+     * @param UserRepository $userRepository
+     * @return Response
+     */
     #[Route('/renvoiverif', name: 'resend_verif')]
     public function resendVerif(JWTService $jwt, SendMailService $mail, UserRepository $userRepository): Response
     {

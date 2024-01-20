@@ -16,8 +16,17 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Controller for security-related actions (login, logout, password reset).
+ */
 class SecurityController extends AbstractController
 {
+    /**
+     * Handles the login page.
+     *
+     * @param AuthenticationUtils $authenticationUtils
+     * @return Response
+     */
     #[Route(path: '/connexion', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
@@ -32,12 +41,27 @@ class SecurityController extends AbstractController
         ]);
     }
 
+
+    /**
+     * Handles the logout action.
+     */
     #[Route(path: '/deconnexion', name: 'app_logout')]
     public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 
+
+    /**
+     * Handles the forgotten password page and email sending.
+     *
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param TokenGeneratorInterface $tokenGeneratorInterface
+     * @param EntityManagerInterface $em
+     * @param SendMailService $mail
+     * @return Response
+     */
     #[Route(path: '/oubli-mot-de-passe', name: 'forgotten_password')]
     public function forgotten_password(
         Request $request,
@@ -89,7 +113,17 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    // Route for resetpassword link.
+
+    /**
+     * Handles the password reset page after clicking on the reset link.
+     *
+     * @param string $token
+     * @param Request $request
+     * @param UserRepository $userRepository
+     * @param EntityManagerInterface $entityManager
+     * @param UserPasswordHasherInterface $passwordHasher
+     * @return Response
+     */
     #[Route(path: '/oubli-passe/{token}', name: 'reset_pass')]
     public function resetPass(
         string $token,

@@ -19,6 +19,16 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class TrickController extends AbstractController
 {
+    /**
+     * Process the form for adding or editing a trick.
+     *
+     * @param Trick $trick
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @param EntityManagerInterface $em
+     * @param bool $isEdit
+     * @return Response
+     */
     private function processTrickForm(
         Trick $trick, 
         Request $request, 
@@ -85,6 +95,14 @@ class TrickController extends AbstractController
     }
 
 
+    /**
+     * Process the image upload for a trick.
+     *
+     * @param $form
+     * @param $trick
+     * @param $em
+     * @param $featuredImg
+     */
     private function processImageUpload($form, $trick, $em, $featuredImg)
     {
         $imageFiles = $form->get('images')->getData();
@@ -111,6 +129,13 @@ class TrickController extends AbstractController
     }
 
 
+    /**
+     * Process the video code for a trick.
+     *
+     * @param $form
+     * @param $trick
+     * @param $em
+     */
     private function processVideoCode($form, $trick, $em)
     {
         $VideoCodes = $form->get('videoEmbdedCode')->getData();
@@ -131,6 +156,15 @@ class TrickController extends AbstractController
         }
     }
 
+
+    /**
+     * Handles the request for adding a new trick.
+     *
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/tricks/nouveau-trick', name: 'tricks_add')]
     public function add(
         Request $request,
@@ -142,6 +176,17 @@ class TrickController extends AbstractController
         return $this -> processTrickForm($newTrick, $request, $slugger, $em, false);
     }
 
+
+    /**
+     * Displays the details of a trick.
+     *
+     * @param Trick $trick
+     * @param Request $request
+     * @param CommentRepository $commentRepository
+     * @param Comment $comment
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/tricks/{slug}', name: 'tricks_details')]
     public function details(
         Trick $trick, 
@@ -175,6 +220,16 @@ class TrickController extends AbstractController
         ]);
     }
 
+
+    /**
+     * Handles the request for editing a trick.
+     *
+     * @param Trick $trick
+     * @param Request $request
+     * @param SluggerInterface $slugger
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/tricks/{slug}/edit', name: 'tricks_edit')]
     public function edit(
         Trick $trick,
@@ -188,6 +243,14 @@ class TrickController extends AbstractController
         }
     }
 
+
+    /**
+     * Handles the request for deleting a trick.
+     *
+     * @param Trick $trick
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/tricks/{slug}/delete', name: 'tricks_delete')]
     public function delete(Trick $trick, EntityManagerInterface $em): Response
     {
@@ -207,6 +270,14 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('main', ['_fragment' => 'flash']);
     }
 
+
+    /**
+     * Handles the request for deleting a media associated with a trick.
+     *
+     * @param Media $media
+     * @param EntityManagerInterface $em
+     * @return Response
+     */
     #[Route('/tricks/media/{media}/delete', name: 'media_delete')]
     public function deleteMedia(Media $media, EntityManagerInterface $em): Response
     {
@@ -226,6 +297,13 @@ class TrickController extends AbstractController
     }
 
     
+    /**
+     * Checks if a trick with the given name already exists in the database.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param string $trickName
+     * @return bool
+     */
     public function checkIfTrickExists(EntityManagerInterface $entityManager, string $trickName): bool
     {
         $trickRepository = $entityManager->getRepository(Trick::class);
