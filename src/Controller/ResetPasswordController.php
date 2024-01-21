@@ -11,6 +11,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ResetPasswordController extends AbstractController
 {
+
+
     /**
      * Displays the reset password page.
      *
@@ -23,4 +25,6 @@ class ResetPasswordController extends AbstractController
             'controller_name' => 'ResetPasswordController',
         ]);
     }
+
+    
 }

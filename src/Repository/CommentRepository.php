@@ -16,6 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CommentRepository extends ServiceEntityRepository
 {
+
+
     /**
      * CommentRepository constructor.
      *
@@ -25,4 +27,6 @@ class CommentRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Comment::class);
     }
+
+    
 }

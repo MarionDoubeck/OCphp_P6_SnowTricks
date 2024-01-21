@@ -129,10 +129,12 @@ class Comment
         return $this;
     }
 
+    
     public function getTrick(): ?Trick
     {
         return $this->trick;
     }
+
 
     public function setTrick(?Trick $trick): static
     {
@@ -140,4 +142,6 @@ class Comment
 
         return $this;
     }
+
+
 }

@@ -60,4 +60,5 @@ class UsersFixtures extends Fixture
 
     }//end load()
 
+    
 }

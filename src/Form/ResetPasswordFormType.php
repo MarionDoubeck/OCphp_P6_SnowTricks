@@ -11,6 +11,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResetPasswordFormType extends AbstractType
 {
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -36,4 +38,5 @@ class ResetPasswordFormType extends AbstractType
         ]);
     }
 
+    
 }

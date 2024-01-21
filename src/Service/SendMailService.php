@@ -8,10 +8,12 @@ class SendMailService
 {
     private $mailer;
 
+    
     public function __construct(MailerInterface $mailer)
     {
         $this->mailer = $mailer;
     }
+
 
     public function send(
         string $from,
@@ -32,4 +34,6 @@ class SendMailService
         // Send email.
         $this->mailer->send($email);
     }
+
+
 }

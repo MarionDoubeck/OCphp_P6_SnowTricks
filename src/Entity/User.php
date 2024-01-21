@@ -277,6 +277,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->tricks;
     }
 
+
     public function addTrick(Trick $trick): static
     {
         if (!$this->tricks->contains($trick)) {
@@ -286,6 +287,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 
     public function removeTrick(Trick $trick): static
     {
@@ -299,10 +301,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     public function getIsVerified(): ?bool
     {
         return $this->is_verified;
     }
+
 
     public function setIsVerified(bool $is_verified): self
     {
@@ -311,10 +315,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
     public function getResetToken(): ?string
     {
         return $this->resetToken;
     }
+
 
     public function setResetToken(?string $resetToken): self
     {
@@ -322,6 +328,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 
     /**
      * Not to have error in forms.
@@ -332,4 +339,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->getUserIdentifier();
     }
+
+    
 }

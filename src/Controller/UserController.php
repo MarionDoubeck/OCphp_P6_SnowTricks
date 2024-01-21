@@ -12,6 +12,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/profil-utilisateur', name: 'profile_')]
 class UserController extends AbstractController
 {
+
+    
     /**
      * Displays the index page of the user profile.
      *
@@ -38,4 +40,6 @@ class UserController extends AbstractController
             'controller_name' => 'Modifier les données de l\'utilisateur',
         ]);
     }
+
+
 }

@@ -21,6 +21,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
  */
 class SecurityController extends AbstractController
 {
+
+
     /**
      * Handles the login page.
      *
@@ -166,4 +168,6 @@ class SecurityController extends AbstractController
         $this->addFlash('danger', 'Ce lien n\'est pas valide');
         return $this->redirectToRoute('app_login');
     }
+
+    
 }

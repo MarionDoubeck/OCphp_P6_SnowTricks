@@ -22,6 +22,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class RegistrationController extends AbstractController
 {
+
+    
     /**
      * Handles the user registration process.
      *
@@ -195,4 +197,6 @@ class RegistrationController extends AbstractController
         $this->addFlash('success', 'Email de vérification envoyé');
         return $this->redirectToRoute('main', ['_fragment' => 'flash']);
     }
+
+
 }

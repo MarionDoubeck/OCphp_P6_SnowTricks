@@ -80,4 +80,6 @@ class CategoriesFixtures extends Fixture
 
         $manager->flush();
     }
+
+    
 }

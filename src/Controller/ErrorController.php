@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  */
 class ErrorController extends AbstractController
 {
+
+
     /**
      * Handles errors and displays the appropriate error page.
      *
@@ -44,4 +46,6 @@ class ErrorController extends AbstractController
             ]);
         }
     }
+
+    
 }

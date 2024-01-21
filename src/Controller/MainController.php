@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MainController extends AbstractController
 {
+
+
     /**
      * Displays the main page with categories and tricks.
      *
@@ -32,4 +34,6 @@ class MainController extends AbstractController
             ['name' => 'asc'])
         ]);
     }
+
+    
 }

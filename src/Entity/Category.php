@@ -126,6 +126,7 @@ class Category
         return $this;
     }
 
+    
     /**
      * Get the collection of tricks associated with this category.
      *
@@ -135,5 +136,6 @@ class Category
     {
         return $this->tricks;
     }
+
 
 }

@@ -10,10 +10,12 @@ class PictureService
 {
     private $params;
 
+    
     public function __construct(ParameterBagInterface $params)
     {
         $this->params = $params;
     }
+
 
     public function add(UploadedFile $picture, ?string $folder = '', ?int $width = 250, ?int $height = 250)
     {
@@ -86,6 +88,7 @@ class PictureService
         return $file;
     }
 
+
     public function delete(string $file, ?string $folder = '', ?int $width = 250, ?int $height = 250)
     {
         if ($file !== 'default.webp') {
@@ -109,4 +112,6 @@ class PictureService
         }
         return false;
     }
+
+
 }

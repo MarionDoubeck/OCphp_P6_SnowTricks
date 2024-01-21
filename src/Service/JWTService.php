@@ -3,9 +3,9 @@ namespace App\Service;
 
 use DateTimeImmutable;
 
+// Generate the token (see jwt.io).
 class JWTService
 {
-    // Generate the token (see jwt.io).
 
     /**
      * Generate JWT
@@ -48,6 +48,7 @@ class JWTService
         return $jwt;
     }
 
+
     // Check if the token is valid (correctly formed).
     public function isValid(string $token): bool
     {
@@ -56,6 +57,7 @@ class JWTService
             $token
         ) === 1;
     }
+
 
     // Get the Payload.
     public function getPayload(string $token): array
@@ -69,6 +71,7 @@ class JWTService
         return $payload;
     }
 
+
     // Get the Header.
     public function getHeader(string $token): array
     {
@@ -81,6 +84,7 @@ class JWTService
         return $header;
     }
 
+
     // Check if the token has expired.
     public function isExpired(string $token): bool
     {
@@ -90,6 +94,7 @@ class JWTService
 
         return $payload['exp'] < $now->getTimestamp();
     }
+
 
     // Verify the Token's Signature.
     public function check(string $token, string $secret)
@@ -103,4 +108,6 @@ class JWTService
 
         return $token === $verifToken;
     }
+
+
 }

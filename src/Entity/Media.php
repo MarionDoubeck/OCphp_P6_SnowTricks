@@ -116,10 +116,12 @@ class Media
         return $this;
     }
 
+    
     public function getTrick(): ?Trick
     {
         return $this->trick;
     }
+
 
     public function setTrick(?Trick $trick): static
     {
@@ -127,6 +129,7 @@ class Media
 
         return $this;
     }
+
 
     /**
      * Not to have error in forms.
@@ -137,4 +140,6 @@ class Media
     {
         return $this->getId();
     }
+
+
 }

@@ -22,6 +22,8 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class AddTrickFormType extends AbstractType
 {
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -102,10 +104,14 @@ class AddTrickFormType extends AbstractType
         ;
     }
 
+
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Trick::class,
         ]);
     }
+
+    
 }
