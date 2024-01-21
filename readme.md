@@ -46,10 +46,11 @@ composer install
   php bin/console doctrine:migrations:migrate
 
 4. **Run the Symfony Server:**
-php bin/console server:run
+Start the Symfony server in detached mode:
+symfony serve -d
 
 5. **Access the Application:**
-Open your web browser and go to `http://localhost:8000`.
+Open your web browser and go to http://localhost:{{PORT_NUMBER}}, where {{PORT_NUMBER}} is the port indicated in the terminal after running the Symfony server.
 
 ## Database
 
