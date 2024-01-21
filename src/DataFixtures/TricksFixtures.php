@@ -26,6 +26,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
      * Trick names, associated trick categories, users, and descriptions are randomized.
      *
      * @param ObjectManager $manager The entity manager to persist the data.
+     * 
      * @return void
      */
     public function load(ObjectManager $manager): void

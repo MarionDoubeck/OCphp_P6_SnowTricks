@@ -20,6 +20,7 @@ class CommentsFixtures extends Fixture implements DependentFixtureInterface
      * Comments are associated with users and tricks randomly.
      *
      * @param ObjectManager $manager The entity manager to persist the data.
+     * 
      * @return void
      */
     public function load(ObjectManager $manager): void

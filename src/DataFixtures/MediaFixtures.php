@@ -20,6 +20,7 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
      * and video URLs are generated in the format of a YouTube video link.
      *
      * @param ObjectManager $manager The entity manager to persist the data.
+     * 
      * @return void
      */
     public function load(ObjectManager $manager): void

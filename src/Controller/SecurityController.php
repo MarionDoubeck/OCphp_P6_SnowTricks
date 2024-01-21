@@ -24,7 +24,7 @@ class SecurityController extends AbstractController
     /**
      * Handles the login page.
      *
-     * @param AuthenticationUtils $authenticationUtils
+     * @param AuthenticationUtils $authenticationUtils The authentication utility.
      * @return Response
      */
     #[Route(path: '/connexion', name: 'app_login')]
@@ -55,11 +55,12 @@ class SecurityController extends AbstractController
     /**
      * Handles the forgotten password page and email sending.
      *
-     * @param Request $request
-     * @param UserRepository $userRepository
-     * @param TokenGeneratorInterface $tokenGeneratorInterface
-     * @param EntityManagerInterface $em
-     * @param SendMailService $mail
+     * @param Request $request The HTTP request.
+     * @param UserRepository $userRepository The user repository.
+     * @param TokenGeneratorInterface $tokenGeneratorInterface The token generator.
+     * @param EntityManagerInterface $em The entity manager.
+     * @param SendMailService $mail The mail service.
+     * 
      * @return Response
      */
     #[Route(path: '/oubli-mot-de-passe', name: 'forgotten_password')]
@@ -117,11 +118,12 @@ class SecurityController extends AbstractController
     /**
      * Handles the password reset page after clicking on the reset link.
      *
-     * @param string $token
-     * @param Request $request
-     * @param UserRepository $userRepository
-     * @param EntityManagerInterface $entityManager
-     * @param UserPasswordHasherInterface $passwordHasher
+     * @param string $token The reset token.
+     * @param Request $request The HTTP request.
+     * @param UserRepository $userRepository The user repository.
+     * @param EntityManagerInterface $entityManager The entity manager.
+     * @param UserPasswordHasherInterface $passwordHasher The password hasher.
+     * 
      * @return Response
      */
     #[Route(path: '/oubli-passe/{token}', name: 'reset_pass')]

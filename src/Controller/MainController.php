@@ -17,8 +17,8 @@ class MainController extends AbstractController
     /**
      * Displays the main page with categories and tricks.
      *
-     * @param CategoryRepository $categoryRepository
-     * @param TrickRepository $trickRepository
+     * @param CategoryRepository $categoryRepository The repository for categories.
+     * @param TrickRepository $trickRepository The repository for tricks.
      * @return Response
      */
     #[Route('/', name: 'main')]

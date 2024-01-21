@@ -22,11 +22,12 @@ class TrickController extends AbstractController
     /**
      * Process the form for adding or editing a trick.
      *
-     * @param Trick $trick
-     * @param Request $request
-     * @param SluggerInterface $slugger
-     * @param EntityManagerInterface $em
-     * @param bool $isEdit
+     * @param Trick $trick The trick entity.
+     * @param Request $request The HTTP request.
+     * @param SluggerInterface $slugger The slugger.
+     * @param EntityManagerInterface $em The entity manager.
+     * @param bool $isEdit Indicates whether it's an edit operation.
+     * 
      * @return Response
      */
     private function processTrickForm(
@@ -98,10 +99,10 @@ class TrickController extends AbstractController
     /**
      * Process the image upload for a trick.
      *
-     * @param $form
-     * @param $trick
-     * @param $em
-     * @param $featuredImg
+     * @param $form The form.
+     * @param $trick The trick entity.
+     * @param $em The entity manager.
+     * @param $featuredImg The featured image.
      */
     private function processImageUpload($form, $trick, $em, $featuredImg)
     {
@@ -132,9 +133,9 @@ class TrickController extends AbstractController
     /**
      * Process the video code for a trick.
      *
-     * @param $form
-     * @param $trick
-     * @param $em
+     * @param $form The form.
+     * @param $trick The trick entity.
+     * @param $em The entity manager.
      */
     private function processVideoCode($form, $trick, $em)
     {
@@ -160,9 +161,10 @@ class TrickController extends AbstractController
     /**
      * Handles the request for adding a new trick.
      *
-     * @param Request $request
-     * @param SluggerInterface $slugger
-     * @param EntityManagerInterface $em
+     * @param Request $request The HTTP request.
+     * @param SluggerInterface $slugger The slugger.
+     * @param EntityManagerInterface $em The entity manager.
+     * 
      * @return Response
      */
     #[Route('/tricks/nouveau-trick', name: 'tricks_add')]
@@ -180,11 +182,12 @@ class TrickController extends AbstractController
     /**
      * Displays the details of a trick.
      *
-     * @param Trick $trick
-     * @param Request $request
-     * @param CommentRepository $commentRepository
-     * @param Comment $comment
-     * @param EntityManagerInterface $em
+     * @param Trick $trick The trick entity.
+     * @param Request $request The HTTP request.
+     * @param CommentRepository $commentRepository The comment repository.
+     * @param Comment $comment The comment entity.
+     * @param EntityManagerInterface $em The entity manager.
+     * 
      * @return Response
      */
     #[Route('/tricks/{slug}', name: 'tricks_details')]
@@ -224,10 +227,11 @@ class TrickController extends AbstractController
     /**
      * Handles the request for editing a trick.
      *
-     * @param Trick $trick
-     * @param Request $request
-     * @param SluggerInterface $slugger
-     * @param EntityManagerInterface $em
+     * @param Trick $trick The trick entity.
+     * @param Request $request The HTTP request.
+     * @param SluggerInterface $slugger The slugger.
+     * @param EntityManagerInterface $em The entity manager.
+     * 
      * @return Response
      */
     #[Route('/tricks/{slug}/edit', name: 'tricks_edit')]
@@ -247,8 +251,9 @@ class TrickController extends AbstractController
     /**
      * Handles the request for deleting a trick.
      *
-     * @param Trick $trick
-     * @param EntityManagerInterface $em
+     * @param Trick $trick The trick entity.
+     * @param EntityManagerInterface $em The entity manager.
+     * 
      * @return Response
      */
     #[Route('/tricks/{slug}/delete', name: 'tricks_delete')]
@@ -274,8 +279,9 @@ class TrickController extends AbstractController
     /**
      * Handles the request for deleting a media associated with a trick.
      *
-     * @param Media $media
-     * @param EntityManagerInterface $em
+     * @param Media $media The media entity.
+     * @param EntityManagerInterface $em The entity manager.
+     * 
      * @return Response
      */
     #[Route('/tricks/media/{media}/delete', name: 'media_delete')]
@@ -300,8 +306,9 @@ class TrickController extends AbstractController
     /**
      * Checks if a trick with the given name already exists in the database.
      *
-     * @param EntityManagerInterface $entityManager
-     * @param string $trickName
+     * @param EntityManagerInterface $entityManager The entity manager.
+     * @param string $trickName The name of the trick.
+     * 
      * @return bool
      */
     public function checkIfTrickExists(EntityManagerInterface $entityManager, string $trickName): bool
