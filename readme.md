@@ -29,4 +29,45 @@ Contribute: Add new figures or update existing ones to enhance the directory.
 Discuss: Engage in discussions on the presentation page to share and gain insights into different snowboarding figures.
 Start your snowboarding journey with Snowboard Freestyle Site today!
 
-## For developpers:
+## Developers
+
+This website is developed using PHP with the Symfony framework. Developers interested in contributing to or running the project locally should follow these steps:
+
+1. **Clone the Repository:**
+git clone https://github.com/votre-utilisateur/snowboard-freestyle.git
+
+2. **Install Dependencies:**
+composer install
+
+3. **Set Up Database:**
+- Create a MySQL database.
+- Configure the `.env` file with your database credentials.
+- Run migrations:
+  php bin/console doctrine:migrations:migrate
+
+4. **Run the Symfony Server:**
+php bin/console server:run
+
+5. **Access the Application:**
+Open your web browser and go to `http://localhost:8000`.
+
+## Database
+
+The application uses MySQL for the database. Make sure you have PHPMyAdmin or a similar tool to manage the database.
+
+## Important Information
+
+- If a user is not verified, a warning message appears, providing a link to resend the activation email.
+- Flash messages are displayed throughout the site to convey important information to users.
+
+## Dependencies
+
+The project uses various dependencies, including Bootstrap, Google Fonts, and other vendor files.
+
+## Scripts and Stylesheets
+
+JavaScript and CSS files are included to enhance the user interface. You can find these files in the `assets` directory.
+
+## Contributing
+
+Feel free to contribute to the project by forking the repository and creating pull requests.
