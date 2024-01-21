@@ -47,5 +47,5 @@ class ErrorController extends AbstractController
         }
     }
 
-    
+
 }

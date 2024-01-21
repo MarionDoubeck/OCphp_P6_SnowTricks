@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class RegistrationController extends AbstractController
 {
 
-    
+
     /**
      * Handles the user registration process.
      *

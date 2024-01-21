@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class TrickController extends AbstractController
 {
 
-    
+
     /**
      * Process the form for adding or editing a trick.
      *

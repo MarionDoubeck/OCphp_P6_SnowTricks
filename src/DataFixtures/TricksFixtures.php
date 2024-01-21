@@ -83,5 +83,5 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    
+
 }

@@ -65,5 +65,5 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 
-    
+
 }

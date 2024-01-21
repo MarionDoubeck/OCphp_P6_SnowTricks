@@ -28,5 +28,5 @@ class MediaRepository extends ServiceEntityRepository
         parent::__construct($registry, Media::class);
     }
 
-    
+
 }

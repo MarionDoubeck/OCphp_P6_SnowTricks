@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
 
-    
+
     /**
      * Displays the index page of the user profile.
      *

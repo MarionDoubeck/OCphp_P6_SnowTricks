@@ -38,5 +38,5 @@ class ResetPasswordFormType extends AbstractType
         ]);
     }
 
-    
+
 }
