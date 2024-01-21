@@ -102,35 +102,38 @@
         {% set endIndex = startIndex + commentsPerPage - 1 %}
         {% set totalPages = (trick.getSortedComments() | length / commentsPerPage) | round(0, 'ceil') %}
 
-
-        <div id="comments">
-        {% for comment in trick.getSortedComments() | slice(startIndex, endIndex) %}
-        
-        <div class="resume-item pb-0">
-          <img src="{{ comment.user.avatar is not null ? asset('assets/avatars/' ~ comment.user.avatar) : asset('assets/avatars/default.png') }}"
-          style="height: 35px; width:35px; border-radius:100%;" alt="photo de l'auteur">
-          <p>{{comment.user.username}}</p>
-          <p><em>{{comment.createdAt|date('Y-m-d H:i:s', 'Europe/Paris')}}</em></p>
-          <p>{{comment.content}}
-          </p>
-        </div>
-        <Hr>
-        {% endfor %}
-      </div>
-
-        <div class="pagination">
-            {% if page > 1 %}
-              <a href="?page={{ page - 1 }}#comments">Page précédente</a>
-            {% endif %}
-  
-            {% for i in 1..totalPages %}
-              <a href="?page={{ i }}#comments" {% if i == page %}class="active"{% endif %}>{{ i }}</a>
-            {% endfor %}
-  
-            {% if page < totalPages %}
-              <a href="?page={{ page + 1 }}#comments">Page suivante</a>
-            {% endif %}
+        {% if trick.getSortedComments()|length > 0 %}
+          <div id="comments">
+          {% for comment in trick.getSortedComments() | slice(startIndex, endIndex) %}
+          
+          <div class="resume-item pb-0">
+            <img src="{{ comment.user.avatar is not null ? asset('assets/avatars/' ~ comment.user.avatar) : asset('assets/avatars/default.png') }}"
+            style="height: 35px; width:35px; border-radius:100%;" alt="photo de l'auteur">
+            <p>{{comment.user.username}}</p>
+            <p><em>{{comment.createdAt|date('Y-m-d H:i:s', 'Europe/Paris')}}</em></p>
+            <p>{{comment.content}}
+            </p>
           </div>
+          <Hr>
+          {% endfor %}
+          </div>
+
+            {% if totalPages > 1 %}
+            <div class="pagination">
+              {% if page > 1 %}
+                <a href="?page={{ page - 1 }}#comments">Page précédente</a>
+              {% endif %}
+    
+              {% for i in 1..totalPages %}
+                <a href="?page={{ i }}#comments" {% if i == page %}class="page_nb active"{% else %}class="page_nb" {% endif %}>{{ i }}</a>
+              {% endfor %}
+    
+              {% if page < totalPages %}
+                <a href="?page={{ page + 1 }}#comments">Page suivante</a>
+              {% endif %}
+            </div>
+            {% endif %}
+          {% endif %}
       </div>
 
     </div>

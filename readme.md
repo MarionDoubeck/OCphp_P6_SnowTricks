@@ -41,7 +41,7 @@ composer install
 
 3. **Set Up Database:**
 - Create a MySQL database.
-- Configure the `.env` file with your database credentials.
+- Configure the `.env` file with your database credentials. (or create .env.local file)
 - Run migrations:
   php bin/console doctrine:migrations:migrate
 

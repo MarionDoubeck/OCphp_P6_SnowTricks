@@ -28,16 +28,15 @@ class MediaFixtures extends Fixture implements DependentFixtureInterface
         $faker = Faker\Factory::create('fr_FR');
         $types = ['image', 'video'];
 
-        for ($i = 1; $i <= 20; $i++) {
+        for ($i = 1; $i <= 100; $i++) {
             $media = new Media();
             $type = $types[rand(0,1)];
             $media->setType($type);
             $media->setDescription($faker->text(20));
             if($type === 'image') {
-                $path = $faker->imageUrl;
+                $path = 'fakeBbdImg.webp';
             } else {
-                $videoId = $faker->regexify('[A-Za-z0-9_-]{11}');
-                $path = "https://www.youtube.com/watch?v=".$videoId;
+                $path = '<iframe width="560" height="315" src="https://www.youtube.com/embed/SQyTWk7OxSI?si=PeFcG8WF59DBgnwR" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
             }
 
             $media->setPath($path);

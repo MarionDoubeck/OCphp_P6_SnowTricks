@@ -1366,3 +1366,9 @@ form #add-img-upload, form #add-img-link{
   width: 416px;
   height: 234px;
 }
+.page_nb{
+  margin: 0 10px;
+}
+.active{
+  color: rgb(0, 0, 101)
+}
