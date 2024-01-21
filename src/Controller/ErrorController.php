@@ -14,7 +14,7 @@ class ErrorController extends AbstractController
     /**
      * Handles errors and displays the appropriate error page.
      *
-     * @param \Throwable $exception
+     * @param Throwable $exception
      * @return Response
      */
     public function handleError(\Throwable $exception): Response
